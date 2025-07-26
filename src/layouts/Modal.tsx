@@ -1,31 +1,20 @@
-import {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-  type SetStateAction,
-  type Dispatch,
-  type ReactNode,
-  cloneElement,
-  type ReactElement,
-} from 'react'
+import { cloneElement, useContext, useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
-import { cn } from '../lib/utils'
 import { CloseIcon } from '../assets/icons/core'
-
-type ModalContextType = {
-  isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
-}
-
-const ModalContext = createContext<ModalContextType>({
-  isOpen: false,
-  setIsOpen: () => {},
-})
+import { ModalContext } from '../context/ModalContext'
+import { cn } from '../lib/utils'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
-  const value = useMemo(() => ({ isOpen, setIsOpen }), [isOpen])
+  const [isModal, setIsModal] = useState(false) // 모달 컴포넌트 내부인지 판단
+  const value = useMemo(() => ({ isOpen, setIsOpen, isModal }), [isOpen, isModal])
+
+  useEffect(() => {
+    setIsModal(true)
+    return () => {
+      setIsModal(false)
+    }
+  }, [])
 
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }
