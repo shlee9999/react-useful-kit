@@ -1,7 +1,7 @@
 {
-  "name": "@shlee9999/react-useful-kit",
+  "name": "react-useful-kit",
   "version": "1.0.0",
-  "description": "shlee9999's useful React components and Hooks",
+  "description": "Useful React components and hooks",
   "main": "dist/react-useful-kit.umd.js",
   "module": "dist/react-useful-kit.es.js",
   "types": "dist/index.d.ts",
