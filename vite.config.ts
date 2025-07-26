@@ -34,6 +34,9 @@ export default defineConfig({
       insertTypesEntry: true,
       include: ['src/**/*.{ts,tsx}'],
       exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.stories.{ts,tsx}'],
+      entryRoot: 'src',
+      outDir: 'dist',
+      tsconfigPath: './tsconfig.lib.json',
     }),
   ],
 })
