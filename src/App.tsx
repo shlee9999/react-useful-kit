@@ -9,7 +9,7 @@ function App() {
         <Modal.Trigger>
           <button onClick={() => console.log('clicked')}>Open Modal</button>
         </Modal.Trigger>
-        <Modal.Content overlay={false}>
+        <Modal.Content>
           <Test />
           <Modal.Close />
         </Modal.Content>

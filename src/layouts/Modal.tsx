@@ -2,7 +2,7 @@ import { cloneElement, useContext, useEffect, useMemo, useState, type ReactEleme
 import { createPortal } from 'react-dom'
 import { CloseIcon } from '../assets/icons/core'
 import { ModalContext } from '../context/ModalContext'
-import { cn } from '../utils/utils'
+import '../styles/modal.css'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -55,28 +55,10 @@ function ModalContent({
     }
   }, [isDefaultOpen, setIsOpen])
 
-  const content = (
-    <div
-      className={cn(
-        'react-useful-kit-modal-content bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4 relative',
-        className
-      )}
-    >
-      {children}
-    </div>
-  )
+  const content = <div className={`react-useful-kit-modal-content ${className}`}>{children}</div>
+
   if (!isOpen) return null
-  return createPortal(
-    <div
-      className={cn(
-        'fixed inset-0  flex items-center justify-center',
-        overlay && 'react-useful-kit-modal-overlay bg-black/50'
-      )}
-    >
-      {content}
-    </div>,
-    document.body
-  )
+  return createPortal(<div className={overlay ? 'react-useful-kit-modal-overlay' : ''}>{content}</div>, document.body)
 }
 
 function ModalClose({
@@ -90,10 +72,7 @@ function ModalClose({
   if (!children)
     return (
       <CloseIcon
-        className={cn(
-          'react-useful-kit-modal-close w-6 h-6 text-gray-100 hover:text-gray-500 transition-colors duration-300 absolute top-3 right-3',
-          className
-        )}
+        className={`react-useful-kit-modal-close ${className}`}
         onClick={() => setIsOpen(false)}
         cursor='pointer'
       />
