@@ -21,7 +21,7 @@ const defaultOptions: AlertOptions = {
   showCancel: false,
 }
 
-export const useAlertModal = () => {
+export default function useAlertModal() {
   // AlertModal을 자동으로 렌더링
   const renderAlertModal = useCallback((options: AlertOptions | string) => {
     function AlertModal() {

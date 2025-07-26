@@ -1,4 +1,4 @@
-import { useAlertModal } from '../context/useAlertModal'
+import useAlertModal from '../context/useAlertModal'
 
 export default function Test() {
   const { alert } = useAlertModal()
