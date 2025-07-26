@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import AlertModalContent from '../components/AlertModalContent'
 import Modal from '../layouts/Modal'
-import { renderToBody } from '../utils/utils'
+import { renderToBody } from '../utils/renderToBody'
 import { injectModalStyles } from '../utils/injectStyles'
 
 export interface AlertOptions {

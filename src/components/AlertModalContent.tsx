@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { useModal } from '../context/ModalContext'
-import { type AlertOptions } from '../context/useAlertModal'
+import { type AlertOptions } from '../hooks/useAlertModal'
 
 export default function AlertModalContent({
   onConfirm,

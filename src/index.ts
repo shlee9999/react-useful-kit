@@ -2,13 +2,13 @@
 export { default as Modal } from './layouts/Modal'
 
 // Hooks
-export { default as useAlertModal } from './context/useAlertModal'
+export { default as useAlertModal } from './hooks/useAlertModal'
 
 // Context
 export { useModal } from './context/ModalContext'
 
-// Types (if needed)
-export type { AlertOptions } from './context/useAlertModal'
+// Types
+export type { AlertOptions } from './hooks/useAlertModal'
 
 // Utils
-export { renderToBody } from './utils/utils'
+export { renderToBody } from './utils/renderToBody'
