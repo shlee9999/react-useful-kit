@@ -1,3 +1,4 @@
+const modalStyles = `
 /* Modal Component Styles */
 .react-useful-kit-modal-overlay {
   position: fixed;
@@ -72,4 +73,30 @@
   padding: 0.5rem 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+`
+
+let stylesInjected = false
+
+/**
+ * 모달 스타일을 자동으로 head에 주입합니다.
+ * 중복 주입을 방지합니다.
+ */
+export function injectModalStyles(): void {
+  if (stylesInjected) return
+
+  if (typeof document === 'undefined') return // SSR 대응
+
+  const existingStyle = document.getElementById('react-useful-kit-modal-styles')
+  if (existingStyle) {
+    stylesInjected = true
+    return
+  }
+
+  const styleElement = document.createElement('style')
+  styleElement.id = 'react-useful-kit-modal-styles'
+  styleElement.textContent = modalStyles
+
+  document.head.appendChild(styleElement)
+  stylesInjected = true
 }

@@ -2,7 +2,7 @@ import { cloneElement, useContext, useEffect, useMemo, useState, type ReactEleme
 import { createPortal } from 'react-dom'
 import { CloseIcon } from '../assets/icons/core'
 import { ModalContext } from '../context/ModalContext'
-import '../styles/modal.css'
+import { injectModalStyles } from '../utils/injectStyles'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -10,6 +10,8 @@ function Modal({ children }: { children: ReactNode }) {
   const value = useMemo(() => ({ isOpen, setIsOpen, isModal }), [isOpen, isModal])
 
   useEffect(() => {
+    // 스타일 자동 주입
+    injectModalStyles()
     setIsModal(true)
     return () => {
       setIsModal(false)
