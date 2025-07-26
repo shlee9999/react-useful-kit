@@ -2,7 +2,7 @@ import { cloneElement, useContext, useEffect, useMemo, useState, type ReactEleme
 import { createPortal } from 'react-dom'
 import { CloseIcon } from '../assets/icons/core'
 import { ModalContext } from '../context/ModalContext'
-import { cn } from '../lib/utils.tsx'
+import { cn } from '../utils/utils.tsx'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
