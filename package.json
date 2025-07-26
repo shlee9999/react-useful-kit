@@ -1,7 +1,7 @@
 {
   "name": "react-stash",
   "version": "1.0.0",
-  "description": "React components and hooks for modal management",
+  "description": "shlee9999's useful React components and Hooks",
   "main": "dist/react-stash.umd.js",
   "module": "dist/react-stash.es.js",
   "types": "dist/index.d.ts",
