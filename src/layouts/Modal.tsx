@@ -30,9 +30,21 @@ function Modal({ children }: { children: ReactNode }) {
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }
 
-function ModalTrigger({ children }: { children: ReactElement<{ onClick?: () => void }> }) {
+function ModalTrigger({
+  children,
+}: {
+  children: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
+}) {
   const { setIsOpen } = useContext(ModalContext)
-  return cloneElement(children, { onClick: () => setIsOpen(true) })
+  return cloneElement(children, {
+    onClick: async (e: React.MouseEvent<HTMLElement>) => {
+      // 기존 onClick이 있다면 실행 (비동기 지원)
+      if (children.props.onClick) {
+        await children.props.onClick(e)
+      }
+      setIsOpen(true)
+    },
+  })
 }
 
 /**
@@ -75,7 +87,7 @@ function ModalClose({
   children,
 }: {
   className?: string
-  children?: ReactElement<{ onClick?: () => void }>
+  children?: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
 }) {
   const { setIsOpen } = useContext(ModalContext)
   if (!children)
@@ -89,7 +101,15 @@ function ModalClose({
         cursor='pointer'
       />
     )
-  return cloneElement(children, { onClick: () => setIsOpen(false) })
+  return cloneElement(children, {
+    onClick: async (e: React.MouseEvent<HTMLElement>) => {
+      // 기존 onClick이 있다면 실행 (비동기 지원)
+      if (children.props.onClick) {
+        await children.props.onClick(e)
+      }
+      setIsOpen(false)
+    },
+  })
 }
 
 Modal.Trigger = ModalTrigger
