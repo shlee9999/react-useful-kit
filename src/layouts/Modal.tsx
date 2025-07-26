@@ -41,7 +41,7 @@ function Modal({ children }: { children: ReactNode }) {
  * 자식 요소의 onClick 이벤트가 없다면 모달만 열립니다.
  * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 엽니다.
  */
-function ModalTrigger({
+Modal.Trigger = function ModalTrigger({
   children,
 }: {
   children: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
@@ -63,7 +63,7 @@ function ModalTrigger({
  * Modal 컴포넌트 내부에 위치해야 합니다.
  * react-useful-kit-modal-overlay, react-useful-kit-modal-content 클래스명을 사용하여 기본 스타일을 커스터마이징 할 수 있습니다.
  */
-function ModalContent({
+Modal.Content = function ModalContent({
   children,
   className,
   overlay = true,
@@ -113,7 +113,7 @@ function ModalContent({
  * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 닫습니다.
  * 자식 요소의 onClick 이벤트가 없다면 모달을 닫습니다.
  */
-function ModalClose({
+Modal.Close = function ModalClose({
   className,
   children,
 }: {
@@ -142,9 +142,5 @@ function ModalClose({
     },
   })
 }
-
-Modal.Trigger = ModalTrigger
-Modal.Content = ModalContent
-Modal.Close = ModalClose
 
 export default Modal
