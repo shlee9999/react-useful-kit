@@ -5,6 +5,7 @@
   "main": "dist/react-useful-kit.umd.js",
   "module": "dist/react-useful-kit.es.js",
   "types": "dist/index.d.ts",
+  "style": "dist/react-useful-kit.css",
   "files": [
     "dist"
   ],

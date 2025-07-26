@@ -1,3 +1,6 @@
+// CSS
+import './styles/modal.css'
+
 // Components
 export { default as Modal } from './layouts/Modal'
 

@@ -19,11 +19,20 @@ export default defineConfig({
           react: 'React',
           'react-dom': 'ReactDOM',
         },
+        // CSS를 별도 파일로도 추출;
+        assetFileNames: assetInfo => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'react-useful-kit.css'
+          }
+          return assetInfo.name || 'assets/[name].[ext]'
+        },
       },
     },
     commonjsOptions: {
       esmExternals: ['react'],
     },
+    // CSS를 별도 파일로 추출
+    cssCodeSplit: false,
   },
   plugins: [
     react(),

@@ -1,69 +1,95 @@
-# React + TypeScript + Vite
+# React Useful Kit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+유용한 React 컴포넌트와 훅들을 모아놓은 라이브러리입니다.
 
-Currently, two official plugins are available:
+## 설치
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install react-useful-kit
+# 또는
+yarn add react-useful-kit
+# 또는
+pnpm add react-useful-kit
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 사용법
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Modal 컴포넌트
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```tsx
+import React, { useState } from 'react'
+import { Modal } from 'react-useful-kit'
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div>
+      <button onClick={() => setIsOpen(true)}>모달 열기</button>
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <p>모달 내용입니다!</p>
+      </Modal>
+    </div>
+  )
+}
 ```
+
+### Alert Modal 훅
+
+```tsx
+import React from 'react'
+import { useAlertModal } from 'react-useful-kit'
+
+function App() {
+  const { showAlert } = useAlertModal()
+
+  const handleClick = () => {
+    showAlert({
+      title: '확인',
+      message: '정말로 삭제하시겠습니까?',
+      onConfirm: () => {
+        console.log('삭제됨')
+      },
+      onCancel: () => {
+        console.log('취소됨')
+      },
+    })
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Alert 표시</button>
+    </div>
+  )
+}
+```
+
+## CSS 스타일
+
+라이브러리의 CSS는 자동으로 포함됩니다. 별도의 CSS import는 필요하지 않습니다.
+
+만약 CSS를 수동으로 import하고 싶다면:
+
+```css
+@import 'react-useful-kit/dist/react-useful-kit.css';
+```
+
+또는 JavaScript/TypeScript에서:
+
+```tsx
+import 'react-useful-kit/dist/react-useful-kit.css'
+```
+
+## 컴포넌트 목록
+
+- **Modal**: 범용 모달 컴포넌트
+- **useAlertModal**: 확인/취소 모달을 위한 훅
+
+## 타입 지원
+
+이 라이브러리는 TypeScript로 작성되었으며 완전한 타입 지원을 제공합니다.
+
+## 라이센스
+
+MIT
