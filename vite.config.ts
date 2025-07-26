@@ -3,9 +3,15 @@ import react from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
 import dts from 'vite-plugin-dts'
 import path from 'path'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
@@ -45,5 +51,6 @@ export default defineConfig({
       outDir: 'dist',
       tsconfigPath: './tsconfig.lib.json',
     }),
+    tsconfigPaths(),
   ],
 })

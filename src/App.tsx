@@ -1,5 +1,5 @@
-import Test from './components/Test'
-import Modal from './layouts/Modal'
+import Test from '@/components/Test'
+import Modal from '@/layouts/Modal'
 
 function App() {
   return (

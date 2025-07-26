@@ -1,8 +1,7 @@
 import { useCallback } from 'react'
-import AlertModalContent from '../components/AlertModalContent'
-import Modal from '../layouts/Modal'
-import { renderToBody } from '../utils/renderToBody'
-import { injectModalStyles } from '../utils/injectStyles'
+import AlertModalContent from '@/components/AlertModalContent'
+import Modal from '@/layouts/Modal'
+import { renderToBody } from '@/utils/renderToBody'
 
 export interface AlertOptions {
   title?: string
@@ -43,9 +42,6 @@ const defaultOptions: AlertOptions = {
 export default function useAlertModal() {
   // AlertModal을 자동으로 렌더링
   const renderAlertModal = useCallback((options: AlertOptions | string) => {
-    // 스타일 자동 주입
-    injectModalStyles()
-
     function AlertModal() {
       return (
         <Modal>
