@@ -4,23 +4,6 @@ import { CloseIcon } from '../assets/icons/core'
 import { ModalContext } from '../context/ModalContext'
 import { cn } from '../utils/utils'
 
-/**
- * 모달 컨텍스트를 제공하는 컴포넌트입니다.
- * Modal.Trigger, Modal.Content, Modal.Close와 함께 사용하세요.
- *
- * @example
- * ```tsx
- * <Modal>
- *   <Modal.Trigger>
- *     <button>모달 열기</button>
- *   </Modal.Trigger>
- *   <Modal.Content>
- *     <h2>모달 내용</h2>
- *     <Modal.Close />
- *   </Modal.Content>
- * </Modal>
- * ```
- */
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isModal, setIsModal] = useState(false) // 모달 컴포넌트 내부인지 판단
@@ -36,12 +19,7 @@ function Modal({ children }: { children: ReactNode }) {
   return <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
 }
 
-/**
- * 자식 요소에 onClick 이벤트를 추가하여 모달을 엽니다.
- * 자식 요소의 onClick 이벤트가 없다면 모달만 열립니다.
- * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 엽니다.
- */
-Modal.Trigger = function ModalTrigger({
+function ModalTrigger({
   children,
 }: {
   children: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
@@ -58,12 +36,7 @@ Modal.Trigger = function ModalTrigger({
   })
 }
 
-/**
- * 모달 컨텐츠를 렌더링하는 컴포넌트입니다.
- * Modal 컴포넌트 내부에 위치해야 합니다.
- * react-useful-kit-modal-overlay, react-useful-kit-modal-content 클래스명을 사용하여 기본 스타일을 커스터마이징 할 수 있습니다.
- */
-Modal.Content = function ModalContent({
+function ModalContent({
   children,
   className,
   overlay = true,
@@ -106,14 +79,7 @@ Modal.Content = function ModalContent({
   )
 }
 
-/**
- * react-useful-kit-modal-close 클래스명을 사용하여 기본 스타일을 커스터마이징 할 수 있습니다.
- * children이 없으면 기본 닫기 버튼을 렌더링합니다.
- * children이 있으면 해당 요소를 렌더링하고 클릭 시 모달을 닫습니다.
- * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 닫습니다.
- * 자식 요소의 onClick 이벤트가 없다면 모달을 닫습니다.
- */
-Modal.Close = function ModalClose({
+function ModalClose({
   className,
   children,
 }: {
@@ -143,4 +109,62 @@ Modal.Close = function ModalClose({
   })
 }
 
-export default Modal
+//* 합성 컴포넌트 인터페이스 정의
+
+interface ModalComponent {
+  ({ children }: { children: ReactNode }): React.JSX.Element
+  /**
+   * 자식 요소에 onClick 이벤트를 추가하여 모달을 엽니다.
+   *
+   * 자식 요소의 onClick 이벤트가 없다면 모달만 열립니다.
+   *
+   * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 엽니다.
+   */
+  Trigger: typeof ModalTrigger
+  /**
+   * 모달 컨텐츠를 렌더링하는 컴포넌트입니다.
+   *
+   * Modal 컴포넌트 내부에 위치해야 합니다.
+   *
+   * react-useful-kit-modal-overlay, react-useful-kit-modal-content 클래스명을 사용하여 기본 스타일을 커스터마이징 할 수 있습니다.
+   */
+  Content: typeof ModalContent
+  /**
+   * react-useful-kit-modal-close 클래스명을 사용하여 기본 스타일을 커스터마이징 할 수 있습니다.
+   *
+   * children이 없으면 기본 닫기 버튼을 렌더링합니다.
+   *
+   * children이 있으면 해당 요소를 렌더링하고 클릭 시 모달을 닫습니다.
+   *
+   * 자식 요소의 onClick 이벤트가 있다면 실행 후 자동으로 모달을 닫습니다.
+   *
+   * 자식 요소의 onClick 이벤트가 없다면 모달을 닫습니다.
+   */
+  Close: typeof ModalClose
+}
+
+//* 합성 컴포넌트 할당
+/**
+ * 모달 컨텍스트를 제공하는 컴포넌트입니다.
+ *
+ * Modal.Trigger, Modal.Content, Modal.Close와 함께 사용하세요.
+ *
+ * @example
+ * ```tsx
+ * <Modal>
+ *   <Modal.Trigger>
+ *     <button>모달 열기</button>
+ *   </Modal.Trigger>
+ *   <Modal.Content>
+ *     <h2>모달 내용</h2>
+ *     <Modal.Close />
+ *   </Modal.Content>
+ * </Modal>
+ * ```
+ */
+const ModalWithSubComponents = Modal as ModalComponent
+ModalWithSubComponents.Trigger = ModalTrigger
+ModalWithSubComponents.Content = ModalContent
+ModalWithSubComponents.Close = ModalClose
+
+export default ModalWithSubComponents
