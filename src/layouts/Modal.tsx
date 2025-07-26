@@ -2,7 +2,7 @@ import { cloneElement, useContext, useEffect, useMemo, useState, type ReactEleme
 import { createPortal } from 'react-dom'
 import { CloseIcon } from '../assets/icons/core'
 import { ModalContext } from '../context/ModalContext'
-import { cn } from '../lib/utils'
+import { cn } from '../lib/utils.tsx'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -43,12 +43,20 @@ function ModalContent({
   children,
   className,
   overlay,
+  isDefaultOpen,
 }: {
   children: ReactNode
   className?: string
   overlay?: boolean
+  isDefaultOpen?: boolean
 }) {
-  const { isOpen } = useContext(ModalContext)
+  const { isOpen, setIsOpen } = useContext(ModalContext)
+
+  useEffect(() => {
+    if (isDefaultOpen) {
+      setIsOpen(true)
+    }
+  }, [isDefaultOpen, setIsOpen])
 
   if (!isOpen) return null
   return createPortal(

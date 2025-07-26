@@ -1,3 +1,4 @@
+import Test from './components/Test'
 import Modal from './layouts/Modal'
 
 function App() {
@@ -6,11 +7,10 @@ function App() {
       React Stash
       <Modal>
         <Modal.Trigger>
-          <button>Open Modal</button>
+          <button onClick={() => console.log('clicked')}>Open Modal</button>
         </Modal.Trigger>
         <Modal.Content>
-          <h1>Modal</h1>
-          <p>This is a modal</p>
+          <Test />
           <Modal.Close />
         </Modal.Content>
       </Modal>
