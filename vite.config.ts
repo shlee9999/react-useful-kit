@@ -10,8 +10,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'react-stash',
-      fileName: format => `react-stash.${format}.js`,
+      name: 'react-useful-kit',
+      fileName: format => `react-useful-kit.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],

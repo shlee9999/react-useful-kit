@@ -1,9 +1,9 @@
 {
-  "name": "react-stash",
+  "name": "@shlee9999/react-useful-kit",
   "version": "1.0.0",
   "description": "shlee9999's useful React components and Hooks",
-  "main": "dist/react-stash.umd.js",
-  "module": "dist/react-stash.es.js",
+  "main": "dist/react-useful-kit.umd.js",
+  "module": "dist/react-useful-kit.es.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
@@ -17,11 +17,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/shlee9999/react-stash.git"
+    "url": "git+https://github.com/shlee9999/react-useful-kit.git"
   },
   "author": "shlee9999 <oklshop555@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
@@ -62,6 +65,7 @@
     "globals": "^16.3.0",
     "path": "^0.12.7",
     "prettier": "^3.6.2",
+    "rollup": "^4.45.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.35.1",
     "vite": "^7.0.4",
