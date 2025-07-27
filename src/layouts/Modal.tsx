@@ -58,7 +58,12 @@ function ModalContent({
   const content = <div className={`react-useful-kit-modal-content ${className}`}>{children}</div>
 
   if (!isOpen) return null
-  return createPortal(<div className={overlay ? 'react-useful-kit-modal-overlay' : ''}>{content}</div>, document.body)
+  return createPortal(
+    <div className={overlay ? 'react-useful-kit-modal-overlay' : ''} data-overlay={overlay}>
+      {content}
+    </div>,
+    document.body
+  )
 }
 
 function ModalClose({
