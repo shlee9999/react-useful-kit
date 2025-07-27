@@ -249,6 +249,12 @@
   -webkit-text-fill-color: transparent;
 }
 
+.ruk-overview-title-icon {
+  font-size: var(--ruk-font-xxl);
+  margin-right: var(--ruk-spacing-sm);
+  -webkit-text-fill-color: var(--ruk-text-white);
+}
+
 .ruk-overview-description {
   font-size: var(--ruk-font-lg);
   color: var(--ruk-text-secondary);

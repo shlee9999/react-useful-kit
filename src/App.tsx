@@ -1,22 +1,25 @@
 import { useState } from 'react'
-import DeepEffectExample from './examples/DeepEffectExample'
-import AlertModalExample from './examples/AlertModalExample'
-import DeepHooksExample from './examples/DeepHooksExample'
-import ModalExample from './examples/ModalExample'
+import * as examples from './examples'
 import './styles/app.css'
 
-type TabType = 'overview' | 'modal' | 'deep-effect' | 'deep-hooks' | 'alert-modal'
+type TabType = 'overview' | keyof typeof examples
+
+const tabs = [
+  { id: 'overview', label: '🏠 개요', component: null },
+  ...Object.entries(examples).map(([key, component]) => ({
+    id: key,
+    label: `🚪 ${key.slice(0, -7)}`,
+    component,
+  })),
+] as const
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
-  const tabs = [
-    { id: 'overview', label: '🏠 개요', component: null },
-    { id: 'modal', label: '🚪 Modal', component: <ModalExample /> },
-    { id: 'deep-effect', label: '🔄 useDeepEffect', component: <DeepEffectExample /> },
-    { id: 'deep-hooks', label: '⚡ Deep Hooks', component: <DeepHooksExample /> },
-    { id: 'alert-modal', label: '🔔 useAlertModal', component: <AlertModalExample /> },
-  ] as const
+  const renderActiveComponent = () => {
+    const currentTab = tabs.find(tab => tab.id === activeTab)
+    return currentTab?.component ? <currentTab.component /> : null
+  }
 
   return (
     <div className='ruk-app'>
@@ -46,7 +49,9 @@ function App() {
         {activeTab === 'overview' && (
           <div className='ruk-overview'>
             <div className='ruk-overview-header'>
-              <h2 className='ruk-overview-title'>🚀 환영합니다!</h2>
+              <h2 className='ruk-overview-title'>
+                <span className='ruk-overview-title-icon'>🚀</span> 환영합니다!
+              </h2>
               <p className='ruk-overview-description'>
                 React 개발을 더욱 편리하게 만들어주는 유용한 도구들을 모았습니다.
                 <br />각 탭을 클릭하여 실제 동작을 확인해보세요!
@@ -60,7 +65,7 @@ function App() {
                   합성 컴포넌트 패턴으로 구현된 유연한 모달 컴포넌트입니다. 직관적인 API로 쉽게 모달을 구현할 수
                   있습니다.
                 </p>
-                <button onClick={() => setActiveTab('modal')} className='ruk-card-button primary'>
+                <button onClick={() => setActiveTab('ModalExample')} className='ruk-card-button primary'>
                   예제 보기 →
                 </button>
               </div>
@@ -71,7 +76,7 @@ function App() {
                   객체나 배열의 깊은 비교를 수행하는 useEffect입니다. 참조가 바뀌어도 실제 값이 같으면 실행되지
                   않습니다.
                 </p>
-                <button onClick={() => setActiveTab('deep-effect')} className='ruk-card-button secondary'>
+                <button onClick={() => setActiveTab('DeepEffectExample')} className='ruk-card-button secondary'>
                   예제 보기 →
                 </button>
               </div>
@@ -79,7 +84,7 @@ function App() {
               <div className='ruk-card'>
                 <h3>⚡ Deep Hooks</h3>
                 <p>useDeepMemo와 useDeepCallback을 체험해보세요. 일반 훅과의 차이점을 실시간으로 비교할 수 있습니다.</p>
-                <button onClick={() => setActiveTab('deep-hooks')} className='ruk-card-button secondary'>
+                <button onClick={() => setActiveTab('DeepHooksExample')} className='ruk-card-button secondary'>
                   예제 보기 →
                 </button>
               </div>
@@ -90,7 +95,7 @@ function App() {
                   함수 호출만으로 간편하게 모달을 띄울 수 있는 훅입니다. 상태 관리 없이 alert, confirm 스타일의 모달을
                   사용할 수 있습니다.
                 </p>
-                <button onClick={() => setActiveTab('alert-modal')} className='ruk-card-button danger'>
+                <button onClick={() => setActiveTab('AlertModalExample')} className='ruk-card-button danger'>
                   예제 보기 →
                 </button>
               </div>
@@ -102,14 +107,7 @@ function App() {
             </div>
           </div>
         )}
-
-        {activeTab === 'modal' && <div>{tabs.find(tab => tab.id === 'modal')?.component}</div>}
-
-        {activeTab === 'deep-effect' && <div>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
-
-        {activeTab === 'deep-hooks' && <div>{tabs.find(tab => tab.id === 'deep-hooks')?.component}</div>}
-
-        {activeTab === 'alert-modal' && <div>{tabs.find(tab => tab.id === 'alert-modal')?.component}</div>}
+        {renderActiveComponent()}
       </main>
 
       {/* Footer */}
