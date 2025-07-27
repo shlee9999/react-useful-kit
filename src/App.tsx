@@ -90,7 +90,7 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'deep-effect' && <div>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
+        {activeTab === 'deep-effect' && <div className=''>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
 
         {activeTab === 'deep-hooks' && <div>{tabs.find(tab => tab.id === 'deep-hooks')?.component}</div>}
 
