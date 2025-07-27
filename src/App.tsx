@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import './styles/app.css'
 import ExampleCard from '@/components/ExampleCard'
 import examples from './examples'
+import './styles/app.css'
 
 type TabType = 'overview' | keyof typeof examples
 
@@ -79,7 +79,7 @@ function App() {
             </div>
           </div>
         )}
-        {renderActiveComponent()}
+        <div className='ruk-example-container'>{renderActiveComponent()}</div>
       </main>
 
       {/* Footer */}

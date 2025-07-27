@@ -265,12 +265,18 @@
   margin: 0 auto;
 }
 
+.ruk-example-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
 .ruk-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--ruk-spacing-xl);
   margin-top: var(--ruk-spacing-xxxl);
   padding: 0 var(--ruk-spacing-lg);
+  margin: auto;
 }
 
 .ruk-card {

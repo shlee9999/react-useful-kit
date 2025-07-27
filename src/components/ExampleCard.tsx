@@ -10,10 +10,10 @@ export default function ExampleCard({
   onClick: () => void
 }) {
   return (
-    <div className='ruk-example-card'>
+    <div className='ruk-card'>
       <h3>{title}</h3>
       <p>{description}</p>
-      <button onClick={onClick} className='ruk-example-card-button primary'>
+      <button onClick={onClick} className='ruk-card-button primary'>
         {buttonText}
       </button>
     </div>
