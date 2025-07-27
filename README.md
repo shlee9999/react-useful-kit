@@ -95,6 +95,50 @@ function App() {
 }
 ```
 
+### useDeepEffect 훅
+
+의존성 배열을 깊은 비교로 처리하는 `useEffect` 훅입니다. 일반적인 `useEffect`는 의존성 배열의 참조만 비교하지만, `useDeepEffect`는 값 자체를 깊게 비교하여 실제로 값이 변경된 경우에만 effect를 실행합니다.
+
+```tsx
+import React, { useState } from 'react'
+import { useDeepEffect } from 'react-useful-kit'
+
+function App() {
+  const [user, setUser] = useState({ name: 'John', age: 30 })
+  const [items, setItems] = useState([1, 2, 3])
+
+  // 일반 useEffect는 user 객체 참조가 바뀔 때마다 실행되지만
+  // useDeepEffect는 user 객체의 실제 값이 변경될 때만 실행됩니다
+  useDeepEffect(() => {
+    console.log('User 정보가 변경되었습니다:', user)
+  }, [user])
+
+  // 배열도 깊은 비교가 가능합니다
+  useDeepEffect(() => {
+    console.log('Items가 변경되었습니다:', items)
+  }, [items])
+
+  const updateUserReference = () => {
+    // 같은 값으로 새 객체 생성 (참조만 변경) - useDeepEffect 실행 안됨
+    setUser({ ...user })
+  }
+
+  const updateUserValue = () => {
+    // 실제 값 변경 - useDeepEffect 실행됨
+    setUser(prev => ({ ...prev, age: prev.age + 1 }))
+  }
+
+  return (
+    <div>
+      <p>User: {JSON.stringify(user)}</p>
+      <p>Items: [{items.join(', ')}]</p>
+      <button onClick={updateUserReference}>참조만 변경 (실행 안됨)</button>
+      <button onClick={updateUserValue}>값 변경 (실행됨)</button>
+    </div>
+  )
+}
+```
+
 ## CSS 스타일
 
 CSS 파일을 수동으로 import하여 사용하세요:
@@ -203,7 +247,33 @@ onConfirm?: () => void
 onCancel?: () => void
 })
 
+````
+
+### useDeepEffect 훅
+
+의존성 배열을 깊은 비교로 처리하는 `useEffect` 훅입니다.
+
+```tsx
+useDeepEffect(effect: React.EffectCallback, deps?: React.DependencyList)
 ```
+
+**매개변수:**
+
+- `effect`: 실행할 effect 함수
+- `deps`: 의존성 배열 (깊은 비교가 적용됨)
+
+**특징:**
+
+- 객체와 배열의 실제 값 변경을 감지합니다
+- 참조만 변경되고 값이 동일한 경우 effect를 실행하지 않습니다
+- 중첩된 객체나 배열도 올바르게 비교합니다
+- Date, RegExp 객체도 지원합니다
+
+**사용 시나리오:**
+
+- 복잡한 객체나 배열이 의존성으로 사용될 때
+- 불필요한 effect 실행을 방지하고 성능을 최적화하고 싶을 때
+- React의 기본 얕은 비교로는 부족한 경우
 
 ### 추가 Exports
 
@@ -214,6 +284,19 @@ onCancel?: () => void
 #### `renderToBody`
 
 컴포넌트를 document.body에 렌더링하는 유틸리티 함수입니다.
+
+#### `deepEqual`
+
+두 값을 깊은 비교하는 유틸리티 함수입니다. `useDeepEffect`에서 내부적으로 사용되며, 직접 사용할 수도 있습니다.
+
+```tsx
+import { deepEqual } from 'react-useful-kit'
+
+const obj1 = { a: 1, b: [2, 3] }
+const obj2 = { a: 1, b: [2, 3] }
+
+console.log(deepEqual(obj1, obj2)) // true
+```
 
 #### `AlertOptions` (타입)
 
@@ -230,4 +313,4 @@ useAlertModal에서 사용하는 옵션 타입입니다.
 ## 라이센스
 
 MIT © [shlee9999](https://github.com/shlee9999)
-```
+````
