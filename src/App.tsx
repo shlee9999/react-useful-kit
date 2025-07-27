@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DeepEffectExample from './examples/DeepEffectExample'
 import AlertModalExample from './examples/AlertModalExample'
 import DeepHooksExample from './examples/DeepHooksExample'
+import './styles/app.css'
 
 type TabType = 'overview' | 'deep-effect' | 'deep-hooks' | 'alert-modal'
 
@@ -16,52 +17,21 @@ function App() {
   ] as const
 
   return (
-    <div style={{ fontFamily: 'sans-serif' }}>
+    <div className='ruk-app'>
       {/* Header */}
-      <header
-        style={{
-          backgroundColor: '#2c3e50',
-          color: 'white',
-          padding: '20px',
-          textAlign: 'center',
-        }}
-      >
-        <h1 style={{ margin: 0, fontSize: '2.5rem' }}>React Useful Kit</h1>
-        <p style={{ margin: '10px 0 0', fontSize: '1.1rem', opacity: 0.9 }}>React용 유용한 훅과 컴포넌트 모음집</p>
+      <header className='ruk-header'>
+        <h1>React Useful Kit</h1>
+        <p>React용 유용한 훅과 컴포넌트 모음집</p>
       </header>
 
       {/* Navigation */}
-      <nav
-        style={{
-          backgroundColor: '#34495e',
-          padding: '0',
-          borderBottom: '2px solid #2c3e50',
-        }}
-      >
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <nav className='ruk-nav'>
+        <div className='ruk-nav-container'>
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as TabType)}
-              style={{
-                background: activeTab === tab.id ? '#3498db' : 'transparent',
-                color: 'white',
-                border: 'none',
-                padding: '15px 30px',
-                cursor: 'pointer',
-                fontSize: '1rem',
-                transition: 'background-color 0.2s',
-              }}
-              onMouseEnter={e => {
-                if (activeTab !== tab.id) {
-                  e.currentTarget.style.backgroundColor = '#2980b9'
-                }
-              }}
-              onMouseLeave={e => {
-                if (activeTab !== tab.id) {
-                  e.currentTarget.style.backgroundColor = 'transparent'
-                }
-              }}
+              className={`ruk-nav-button ${activeTab === tab.id ? 'active' : ''}`}
             >
               {tab.label}
             </button>
@@ -70,134 +40,52 @@ function App() {
       </nav>
 
       {/* Content */}
-      <main style={{ minHeight: 'calc(100vh - 200px)' }}>
+      <main className='ruk-main'>
         {activeTab === 'overview' && (
-          <div style={{ padding: '40px', maxWidth: '1200px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontSize: '2rem', color: '#2c3e50', marginBottom: '20px' }}>🚀 환영합니다!</h2>
-              <p style={{ fontSize: '1.2rem', color: '#7f8c8d', lineHeight: 1.6 }}>
+          <div className='ruk-overview'>
+            <div className='ruk-overview-header'>
+              <h2 className='ruk-overview-title'>🚀 환영합니다!</h2>
+              <p className='ruk-overview-description'>
                 React 개발을 더욱 편리하게 만들어주는 유용한 도구들을 모았습니다.
                 <br />각 탭을 클릭하여 실제 동작을 확인해보세요!
               </p>
             </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '30px',
-                marginTop: '40px',
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: '#ecf0f1',
-                  padding: '25px',
-                  borderRadius: '10px',
-                  border: '2px solid #bdc3c7',
-                }}
-              >
-                <h3 style={{ color: '#2c3e50', marginTop: 0 }}>🔄 useDeepEffect</h3>
-                <p style={{ color: '#7f8c8d', lineHeight: 1.5 }}>
+            <div className='ruk-cards'>
+              <div className='ruk-card'>
+                <h3>🔄 useDeepEffect</h3>
+                <p>
                   객체나 배열의 깊은 비교를 수행하는 useEffect입니다. 참조가 바뀌어도 실제 값이 같으면 실행되지
                   않습니다.
                 </p>
-                <button
-                  onClick={() => setActiveTab('deep-effect')}
-                  style={{
-                    backgroundColor: '#3498db',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    marginTop: '10px',
-                  }}
-                >
+                <button onClick={() => setActiveTab('deep-effect')} className='ruk-card-button primary'>
                   예제 보기 →
                 </button>
               </div>
 
-              <div
-                style={{
-                  backgroundColor: '#ecf0f1',
-                  padding: '25px',
-                  borderRadius: '10px',
-                  border: '2px solid #bdc3c7',
-                }}
-              >
-                <h3 style={{ color: '#2c3e50', marginTop: 0 }}>⚡ Deep Hooks</h3>
-                <p style={{ color: '#7f8c8d', lineHeight: 1.5 }}>
-                  useDeepMemo와 useDeepCallback을 체험해보세요. 일반 훅과의 차이점을 실시간으로 비교할 수 있습니다.
-                </p>
-                <button
-                  onClick={() => setActiveTab('deep-hooks')}
-                  style={{
-                    backgroundColor: '#9b59b6',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    marginTop: '10px',
-                  }}
-                >
+              <div className='ruk-card'>
+                <h3>⚡ Deep Hooks</h3>
+                <p>useDeepMemo와 useDeepCallback을 체험해보세요. 일반 훅과의 차이점을 실시간으로 비교할 수 있습니다.</p>
+                <button onClick={() => setActiveTab('deep-hooks')} className='ruk-card-button secondary'>
                   예제 보기 →
                 </button>
               </div>
 
-              <div
-                style={{
-                  backgroundColor: '#ecf0f1',
-                  padding: '25px',
-                  borderRadius: '10px',
-                  border: '2px solid #bdc3c7',
-                }}
-              >
-                <h3 style={{ color: '#2c3e50', marginTop: 0 }}>🔔 useAlertModal</h3>
-                <p style={{ color: '#7f8c8d', lineHeight: 1.5 }}>
+              <div className='ruk-card'>
+                <h3>🔔 useAlertModal</h3>
+                <p>
                   함수 호출만으로 간편하게 모달을 띄울 수 있는 훅입니다. 상태 관리 없이 alert, confirm 스타일의 모달을
                   사용할 수 있습니다.
                 </p>
-                <button
-                  onClick={() => setActiveTab('alert-modal')}
-                  style={{
-                    backgroundColor: '#e74c3c',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 20px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                    marginTop: '10px',
-                  }}
-                >
+                <button onClick={() => setActiveTab('alert-modal')} className='ruk-card-button danger'>
                   예제 보기 →
                 </button>
               </div>
             </div>
 
-            <div
-              style={{
-                textAlign: 'center',
-                marginTop: '50px',
-                padding: '30px',
-                backgroundColor: '#f8f9fa',
-                borderRadius: '10px',
-              }}
-            >
-              <h3 style={{ color: '#2c3e50' }}>📦 설치 방법</h3>
-              <code
-                style={{
-                  backgroundColor: '#2c3e50',
-                  color: '#ecf0f1',
-                  padding: '15px 25px',
-                  borderRadius: '5px',
-                  fontSize: '1.1rem',
-                  display: 'inline-block',
-                }}
-              >
-                npm install react-useful-kit
-              </code>
+            <div className='ruk-install-section'>
+              <h3>📦 설치 방법</h3>
+              <code className='ruk-install-code'>npm install react-useful-kit</code>
             </div>
           </div>
         )}
@@ -210,15 +98,8 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer
-        style={{
-          backgroundColor: '#2c3e50',
-          color: 'white',
-          textAlign: 'center',
-          padding: '20px',
-        }}
-      >
-        <p style={{ margin: 0, opacity: 0.8 }}>Made with ❤️ for React developers</p>
+      <footer className='ruk-footer'>
+        <p>Made with ❤️ for React developers</p>
       </footer>
     </div>
   )

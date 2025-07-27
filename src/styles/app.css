@@ -1,0 +1,202 @@
+/* React Useful Kit App Styles */
+/* CSS 변수 정의 - 네임스페이스 접두사 'ruk-' 사용으로 변수명 충돌 방지 */
+:root {
+  /* 메인 컬러 */
+  --ruk-primary-color: #3498db;
+  --ruk-primary-dark: #2980b9;
+  --ruk-secondary-color: #9b59b6;
+  --ruk-danger-color: #e74c3c;
+
+  /* 배경 컬러 */
+  --ruk-header-bg: #2c3e50;
+  --ruk-nav-bg: #34495e;
+  --ruk-card-bg: #ecf0f1;
+  --ruk-section-bg: #f8f9fa;
+
+  /* 텍스트 컬러 */
+  --ruk-text-primary: #2c3e50;
+  --ruk-text-secondary: #7f8c8d;
+  --ruk-text-white: white;
+  --ruk-text-light: #ecf0f1;
+
+  /* 보더 */
+  --ruk-border-color: #bdc3c7;
+  --ruk-border-dark: #2c3e50;
+
+  /* 간격 */
+  --ruk-spacing-xs: 10px;
+  --ruk-spacing-sm: 15px;
+  --ruk-spacing-md: 20px;
+  --ruk-spacing-lg: 25px;
+  --ruk-spacing-xl: 30px;
+  --ruk-spacing-xxl: 40px;
+  --ruk-spacing-xxxl: 50px;
+
+  /* 폰트 크기 */
+  --ruk-font-sm: 1rem;
+  --ruk-font-md: 1.1rem;
+  --ruk-font-lg: 1.2rem;
+  --ruk-font-xl: 2rem;
+  --ruk-font-xxl: 2.5rem;
+
+  /* 그림자 및 기타 */
+  --ruk-border-radius: 5px;
+  --ruk-border-radius-lg: 10px;
+  --ruk-transition: 0.2s;
+}
+
+.ruk-app {
+  font-family: sans-serif;
+}
+
+.ruk-header {
+  background-color: var(--ruk-header-bg);
+  color: var(--ruk-text-white);
+  padding: var(--ruk-spacing-md);
+  text-align: center;
+}
+
+.ruk-header h1 {
+  margin: 0;
+  font-size: var(--ruk-font-xxl);
+}
+
+.ruk-header p {
+  margin: var(--ruk-spacing-xs) 0 0;
+  font-size: var(--ruk-font-md);
+  opacity: 0.9;
+}
+
+.ruk-nav {
+  background-color: var(--ruk-nav-bg);
+  padding: 0;
+  border-bottom: 2px solid var(--ruk-border-dark);
+}
+
+.ruk-nav-container {
+  display: flex;
+  justify-content: center;
+}
+
+.ruk-nav-button {
+  background: transparent;
+  color: var(--ruk-text-white);
+  border: none;
+  padding: var(--ruk-spacing-sm) var(--ruk-spacing-xl);
+  cursor: pointer;
+  font-size: var(--ruk-font-sm);
+  transition: background-color var(--ruk-transition);
+}
+
+.ruk-nav-button:hover {
+  background-color: var(--ruk-primary-dark);
+}
+
+.ruk-nav-button.active {
+  background-color: var(--ruk-primary-color);
+}
+
+.ruk-main {
+  min-height: calc(100vh - 200px);
+}
+
+.ruk-overview {
+  padding: var(--ruk-spacing-xxl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ruk-overview-header {
+  text-align: center;
+  margin-bottom: var(--ruk-spacing-xxl);
+}
+
+.ruk-overview-title {
+  font-size: var(--ruk-font-xl);
+  color: var(--ruk-text-primary);
+  margin-bottom: var(--ruk-spacing-md);
+}
+
+.ruk-overview-description {
+  font-size: var(--ruk-font-lg);
+  color: var(--ruk-text-secondary);
+  line-height: 1.6;
+}
+
+.ruk-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--ruk-spacing-xl);
+  margin-top: var(--ruk-spacing-xxl);
+}
+
+.ruk-card {
+  background-color: var(--ruk-card-bg);
+  padding: var(--ruk-spacing-lg);
+  border-radius: var(--ruk-border-radius-lg);
+  border: 2px solid var(--ruk-border-color);
+}
+
+.ruk-card h3 {
+  color: var(--ruk-text-primary);
+  margin-top: 0;
+}
+
+.ruk-card p {
+  color: var(--ruk-text-secondary);
+  line-height: 1.5;
+}
+
+.ruk-card-button {
+  border: none;
+  padding: var(--ruk-spacing-xs) var(--ruk-spacing-md);
+  border-radius: var(--ruk-border-radius);
+  cursor: pointer;
+  margin-top: var(--ruk-spacing-xs);
+  color: var(--ruk-text-white);
+}
+
+.ruk-card-button.primary {
+  background-color: var(--ruk-primary-color);
+}
+
+.ruk-card-button.secondary {
+  background-color: var(--ruk-secondary-color);
+}
+
+.ruk-card-button.danger {
+  background-color: var(--ruk-danger-color);
+}
+
+.ruk-install-section {
+  text-align: center;
+  margin-top: var(--ruk-spacing-xxxl);
+  padding: var(--ruk-spacing-xl);
+  background-color: var(--ruk-section-bg);
+  border-radius: var(--ruk-border-radius-lg);
+}
+
+.ruk-install-section h3 {
+  color: var(--ruk-text-primary);
+}
+
+.ruk-install-code {
+  background-color: var(--ruk-header-bg);
+  color: var(--ruk-text-light);
+  padding: var(--ruk-spacing-sm) var(--ruk-spacing-lg);
+  border-radius: var(--ruk-border-radius);
+  font-size: var(--ruk-font-md);
+  display: inline-block;
+}
+
+.ruk-footer {
+  background-color: var(--ruk-header-bg);
+  color: var(--ruk-text-white);
+  text-align: center;
+  padding: var(--ruk-spacing-md);
+}
+
+.ruk-footer p {
+  margin: 0;
+  opacity: 0.8;
+}

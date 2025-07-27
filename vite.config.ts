@@ -40,7 +40,8 @@ export default defineConfig({
       exclude: [
         'src/**/*.test.{ts,tsx}',
         'src/**/*.stories.{ts,tsx}',
-        'src/App.tsx', // 개발용 데모 앱
+        'src/App.tsx', // 개발용 데모 App
+        'src/styles/app.css', // App CSS
         'src/main.tsx', // 개발용 진입점
         'src/examples/**/*', // 데모 예제들
         'src/components/Test.tsx', // 테스트용 컴포넌트
