@@ -48,7 +48,9 @@ export default function useAlertModal() {
         <Modal>
           <Modal.Content isDefaultOpen>
             <AlertModalContent
-              {...(typeof options === 'string' ? { ...defaultOptions, message: options } : (options ?? defaultOptions))}
+              {...(typeof options === 'string'
+                ? { ...defaultOptions, message: options }
+                : { ...defaultOptions, ...options })}
             />
           </Modal.Content>
         </Modal>
