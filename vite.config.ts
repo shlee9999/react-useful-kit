@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import svgr from 'vite-plugin-svgr'
-import dts from 'vite-plugin-dts'
 import path from 'path'
+import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
+import svgr from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 // https://vite.dev/config/
@@ -44,8 +44,8 @@ export default defineConfig({
         'src/styles/app.css', // App CSS
         'src/main.tsx', // 개발용 진입점
         'src/examples/**/*', // 데모 예제들
-        'src/components/Test.tsx', // 테스트용 컴포넌트
         'src/vite-env.d.ts', // Vite 환경 타입
+        'src/components/ExampleCard.tsx',
       ],
       entryRoot: 'src',
       outDir: 'dist',
