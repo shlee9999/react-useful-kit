@@ -37,7 +37,15 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.stories.{ts,tsx}'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/**/*.stories.{ts,tsx}',
+        'src/App.tsx', // 개발용 데모 앱
+        'src/main.tsx', // 개발용 진입점
+        'src/examples/**/*', // 데모 예제들
+        'src/components/Test.tsx', // 테스트용 컴포넌트
+        'src/vite-env.d.ts', // Vite 환경 타입
+      ],
       entryRoot: 'src',
       outDir: 'dist',
       tsconfigPath: './tsconfig.lib.json',
