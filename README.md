@@ -2,6 +2,9 @@
 
 유용한 React 컴포넌트와 훅들을 모아놓은 라이브러리입니다.
 
+[![npm version](https://badge.fury.io/js/react-useful-kit.svg)](https://badge.fury.io/js/react-useful-kit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## 설치
 
 ```bash
@@ -12,12 +15,17 @@ yarn add react-useful-kit
 pnpm add react-useful-kit
 ```
 
+## 요구사항
+
+- React 19.0.0 이상
+- React DOM 19.0.0 이상
+
 ## 특징
 
-✅ **CSS 자동 주입**: 별도의 CSS import 없이 바로 사용 가능  
+✅ **CSS 수동 주입**: CSS 파일을 선택적으로 import하여 커스터마이징 용이  
 ✅ **TypeScript 완전 지원**: 타입 안전성 보장  
-✅ **SSR 호환**: Next.js 등 서버사이드 렌더링 환경에서 안전하게 동작  
-✅ **경량**: 최소한의 의존성으로 번들 크기 최적화
+✅ **경량**: 최소한의 의존성으로 번들 크기 최적화  
+✅ **합성 컴포넌트 패턴**: 유연하고 직관적인 API 제공
 
 ## 사용법
 
@@ -89,9 +97,13 @@ function App() {
 
 ## CSS 스타일
 
-🎉 **CSS가 자동으로 주입됩니다!** 별도의 CSS import는 필요하지 않습니다.
+CSS 파일을 수동으로 import하여 사용하세요:
 
-컴포넌트를 사용하면 필요한 스타일이 자동으로 `<head>`에 추가되어 즉시 사용할 수 있습니다.
+```typescript
+import 'react-useful-kit/dist/react-useful-kit.css'
+```
+
+이렇게 하면 사용자가 원하는 시점에 스타일을 로드할 수 있고, 커스터마이징도 더 쉽게 할 수 있습니다.
 
 ### 커스터마이징
 
@@ -119,6 +131,9 @@ function App() {
 .react-useful-kit-alert-modal-message {
   /* Alert 메시지 */
 }
+.react-useful-kit-alert-modal-button-container {
+  /* 버튼 컨테이너 */
+}
 .react-useful-kit-alert-modal-confirm-button {
   /* 확인 버튼 */
 }
@@ -131,35 +146,88 @@ function App() {
 
 ### Modal 컴포넌트
 
-- `Modal`: 모달 컨텍스트 제공
-- `Modal.Trigger`: 모달을 여는 트리거 요소
-- `Modal.Content`: 모달 내용 (props: `className?`, `overlay?`, `isDefaultOpen?`)
-- `Modal.Close`: 모달을 닫는 요소
+합성 컴포넌트 패턴으로 구현된 모달 컴포넌트입니다.
+
+#### `Modal`
+
+모달 컨텍스트를 제공하는 루트 컴포넌트입니다.
+
+#### `Modal.Trigger`
+
+모달을 여는 트리거 요소입니다.
+
+- 자식 요소에 `onClick` 이벤트를 추가하여 모달을 엽니다
+- 기존 `onClick` 이벤트가 있다면 먼저 실행한 후 모달을 엽니다
+
+#### `Modal.Content`
+
+모달 내용을 렌더링하는 컴포넌트입니다.
+
+**Props:**
+
+- `className?`: string - 추가 CSS 클래스
+- `overlay?`: boolean - 오버레이 표시 여부 (기본값: true)
+- `isDefaultOpen?`: boolean - 초기 열림 상태 (기본값: false)
+
+#### `Modal.Close`
+
+모달을 닫는 요소입니다.
+
+- `children`이 없으면 기본 닫기 버튼을 렌더링합니다
+- `children`이 있으면 해당 요소에 클릭 이벤트를 추가하여 모달을 닫습니다
+
+**Props:**
+
+- `className?`: string - 추가 CSS 클래스
+- `children?`: ReactElement - 커스텀 닫기 요소
 
 ### useAlertModal 훅
 
+함수형 모달을 위한 훅입니다.
+
 ```tsx
 const { alert } = useAlertModal()
+```
 
 // 간단한 사용법
 alert('메시지')
 
 // 상세한 옵션
 alert({
-  title?: string
-  message: string
-  confirmText?: string
-  cancelText?: string
-  showCancel?: boolean
-  onConfirm?: () => void
-  onCancel?: () => void
+title?: string
+message: string
+confirmText?: string
+cancelText?: string
+showCancel?: boolean
+onConfirm?: () => void
+onCancel?: () => void
 })
+
 ```
+
+### 추가 Exports
+
+#### `useModal`
+
+모달 컨텍스트에 접근할 수 있는 훅입니다.
+
+#### `renderToBody`
+
+컴포넌트를 document.body에 렌더링하는 유틸리티 함수입니다.
+
+#### `AlertOptions` (타입)
+
+useAlertModal에서 사용하는 옵션 타입입니다.
 
 ## 타입 지원
 
 이 라이브러리는 TypeScript로 작성되었으며 완전한 타입 지원을 제공합니다. 모든 컴포넌트와 훅에 대한 타입 정의가 포함되어 있어 개발 시 자동완성과 타입 체크를 받을 수 있습니다.
 
+## 기여하기
+
+이슈나 풀 리퀘스트는 [GitHub 저장소](https://github.com/shlee9999/react-useful-kit)에서 환영합니다.
+
 ## 라이센스
 
-MIT
+MIT © [shlee9999](https://github.com/shlee9999)
+```
