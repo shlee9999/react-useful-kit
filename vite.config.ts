@@ -12,6 +12,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  server: {
+    port: 3000,
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
@@ -41,11 +44,8 @@ export default defineConfig({
         'src/**/*.test.{ts,tsx}',
         'src/**/*.stories.{ts,tsx}',
         'src/App.tsx', // 개발용 데모 App
-        'src/styles/app.css', // App CSS
         'src/main.tsx', // 개발용 진입점
-        'src/examples/**/*', // 데모 예제들
         'src/vite-env.d.ts', // Vite 환경 타입
-        'src/components/ExampleCard.tsx',
       ],
       entryRoot: 'src',
       outDir: 'dist',
