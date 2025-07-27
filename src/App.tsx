@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import DeepEffectExample from './examples/DeepEffectExample'
 import AlertModalExample from './examples/AlertModalExample'
+import DeepHooksExample from './examples/DeepHooksExample'
 
-type TabType = 'overview' | 'deep-effect' | 'alert-modal'
+type TabType = 'overview' | 'deep-effect' | 'deep-hooks' | 'alert-modal'
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('overview')
@@ -10,6 +11,7 @@ function App() {
   const tabs = [
     { id: 'overview', label: '🏠 개요', component: null },
     { id: 'deep-effect', label: '🔄 useDeepEffect', component: <DeepEffectExample /> },
+    { id: 'deep-hooks', label: '⚡ Deep Hooks', component: <DeepHooksExample /> },
     { id: 'alert-modal', label: '🔔 useAlertModal', component: <AlertModalExample /> },
   ] as const
 
@@ -124,6 +126,34 @@ function App() {
                   border: '2px solid #bdc3c7',
                 }}
               >
+                <h3 style={{ color: '#2c3e50', marginTop: 0 }}>⚡ Deep Hooks</h3>
+                <p style={{ color: '#7f8c8d', lineHeight: 1.5 }}>
+                  useDeepMemo와 useDeepCallback을 체험해보세요. 일반 훅과의 차이점을 실시간으로 비교할 수 있습니다.
+                </p>
+                <button
+                  onClick={() => setActiveTab('deep-hooks')}
+                  style={{
+                    backgroundColor: '#9b59b6',
+                    color: 'white',
+                    border: 'none',
+                    padding: '10px 20px',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    marginTop: '10px',
+                  }}
+                >
+                  예제 보기 →
+                </button>
+              </div>
+
+              <div
+                style={{
+                  backgroundColor: '#ecf0f1',
+                  padding: '25px',
+                  borderRadius: '10px',
+                  border: '2px solid #bdc3c7',
+                }}
+              >
                 <h3 style={{ color: '#2c3e50', marginTop: 0 }}>🔔 useAlertModal</h3>
                 <p style={{ color: '#7f8c8d', lineHeight: 1.5 }}>
                   함수 호출만으로 간편하게 모달을 띄울 수 있는 훅입니다. 상태 관리 없이 alert, confirm 스타일의 모달을
@@ -173,6 +203,8 @@ function App() {
         )}
 
         {activeTab === 'deep-effect' && <div>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
+
+        {activeTab === 'deep-hooks' && <div>{tabs.find(tab => tab.id === 'deep-hooks')?.component}</div>}
 
         {activeTab === 'alert-modal' && <div>{tabs.find(tab => tab.id === 'alert-modal')?.component}</div>}
       </main>
