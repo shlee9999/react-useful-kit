@@ -10,7 +10,12 @@ export default function Test() {
   const showConfirmAlert = () => {
     alert({
       title: '확인',
-      message: '정말 삭제하시겠습니까?',
+      message: (
+        <div>
+          <p>정말 삭제하시겠습니까?</p>
+          <p>정말 삭제하시겠습니까?</p>
+        </div>
+      ),
       confirmText: '삭제',
       cancelText: '취소',
       showCancel: true,

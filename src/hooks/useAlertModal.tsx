@@ -1,11 +1,12 @@
 import { useCallback } from 'react'
+import type { ReactNode } from 'react'
 import AlertModalContent from '@/components/AlertModalContent'
 import Modal from '@/layouts/Modal'
 import { renderToBody } from '@/utils/renderToBody'
 
 export interface AlertOptions {
   title?: string
-  message: string
+  message: ReactNode
   confirmText?: string
   cancelText?: string
   onConfirm?: () => void
