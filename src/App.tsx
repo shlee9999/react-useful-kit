@@ -2,15 +2,17 @@ import { useState } from 'react'
 import DeepEffectExample from './examples/DeepEffectExample'
 import AlertModalExample from './examples/AlertModalExample'
 import DeepHooksExample from './examples/DeepHooksExample'
+import ModalExample from './examples/ModalExample'
 import './styles/app.css'
 
-type TabType = 'overview' | 'deep-effect' | 'deep-hooks' | 'alert-modal'
+type TabType = 'overview' | 'modal' | 'deep-effect' | 'deep-hooks' | 'alert-modal'
 
 function App() {
   const [activeTab, setActiveTab] = useState<TabType>('overview')
 
   const tabs = [
     { id: 'overview', label: '🏠 개요', component: null },
+    { id: 'modal', label: '🚪 Modal', component: <ModalExample /> },
     { id: 'deep-effect', label: '🔄 useDeepEffect', component: <DeepEffectExample /> },
     { id: 'deep-hooks', label: '⚡ Deep Hooks', component: <DeepHooksExample /> },
     { id: 'alert-modal', label: '🔔 useAlertModal', component: <AlertModalExample /> },
@@ -53,12 +55,23 @@ function App() {
 
             <div className='ruk-cards'>
               <div className='ruk-card'>
+                <h3>🚪 Modal</h3>
+                <p>
+                  합성 컴포넌트 패턴으로 구현된 유연한 모달 컴포넌트입니다. 직관적인 API로 쉽게 모달을 구현할 수
+                  있습니다.
+                </p>
+                <button onClick={() => setActiveTab('modal')} className='ruk-card-button primary'>
+                  예제 보기 →
+                </button>
+              </div>
+
+              <div className='ruk-card'>
                 <h3>🔄 useDeepEffect</h3>
                 <p>
                   객체나 배열의 깊은 비교를 수행하는 useEffect입니다. 참조가 바뀌어도 실제 값이 같으면 실행되지
                   않습니다.
                 </p>
-                <button onClick={() => setActiveTab('deep-effect')} className='ruk-card-button primary'>
+                <button onClick={() => setActiveTab('deep-effect')} className='ruk-card-button secondary'>
                   예제 보기 →
                 </button>
               </div>
@@ -90,7 +103,9 @@ function App() {
           </div>
         )}
 
-        {activeTab === 'deep-effect' && <div className=''>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
+        {activeTab === 'modal' && <div>{tabs.find(tab => tab.id === 'modal')?.component}</div>}
+
+        {activeTab === 'deep-effect' && <div>{tabs.find(tab => tab.id === 'deep-effect')?.component}</div>}
 
         {activeTab === 'deep-hooks' && <div>{tabs.find(tab => tab.id === 'deep-hooks')?.component}</div>}
 
