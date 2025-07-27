@@ -149,53 +149,88 @@
 }
 
 .ruk-nav-button {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.8);
   color: var(--ruk-text-secondary);
-  border: 1px solid transparent;
-  border-radius: var(--ruk-border-radius-lg);
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  border-radius: 50px;
   padding: var(--ruk-spacing-sm) var(--ruk-spacing-lg);
   cursor: pointer;
   font-size: var(--ruk-font-sm);
-  font-weight: 500;
-  transition: var(--ruk-transition);
+  font-weight: 600;
+  transition: var(--ruk-transition-fast);
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  min-width: 120px;
+  text-align: center;
 }
 
 .ruk-nav-button::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: var(--ruk-gradient-primary);
-  transition: var(--ruk-transition);
+  background: var(--ruk-primary-color);
+  opacity: 0;
+  transition: var(--ruk-transition-fast);
   z-index: -1;
+  border-radius: inherit;
+}
+
+.ruk-nav-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  transition: var(--ruk-transition-fast);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 1;
 }
 
 .ruk-nav-button:hover {
   color: var(--ruk-text-white);
   border-color: var(--ruk-primary-color);
-  box-shadow: var(--ruk-shadow-md);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  transform: translateY(-3px) scale(1.02);
 }
 
 .ruk-nav-button:hover::before {
-  left: 0;
+  opacity: 1;
+}
+
+.ruk-nav-button:hover::after {
+  width: 100px;
+  height: 100px;
+}
+
+.ruk-nav-button:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
 }
 
 .ruk-nav-button.active {
-  background: var(--ruk-gradient-primary);
+  background: var(--ruk-primary-color);
   color: var(--ruk-text-white);
-  border-color: var(--ruk-primary-color);
-  box-shadow: var(--ruk-shadow-lg);
-  transform: translateY(-1px);
+  border-color: var(--ruk-primary-dark);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
 }
 
 .ruk-nav-button.active::before {
-  left: 0;
+  opacity: 1;
+}
+
+.ruk-nav-button.active::after {
+  width: 120px;
+  height: 120px;
 }
 
 .ruk-main {
