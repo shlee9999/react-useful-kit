@@ -1,7 +1,8 @@
 import { createRoot } from 'react-dom/client'
 
+//! Deprecated - createRoot로 인해 Context가 끊긴다.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function renderToBody(Component: React.ComponentType<any>, props: any) {
+function renderToBody(Component: React.ComponentType<any>, props: any) {
   const container = document.createElement('div')
   document.body.appendChild(container)
   const root = createRoot(container)

@@ -1,10 +1,13 @@
+import App from '@/App'
+import { AlertProvider } from '@/context/AlertProvider'
+import '@/global.css'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import '@/global.css'
-import App from '@/App'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <AlertProvider>
+      <App />
+    </AlertProvider>
   </StrictMode>
 )

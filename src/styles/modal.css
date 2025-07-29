@@ -26,6 +26,7 @@
   width: 100%;
   margin: 0 1rem;
   position: relative;
+  pointer-events: auto;
 }
 .react-useful-kit-modal-close {
   width: 1.5rem;

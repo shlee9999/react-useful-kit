@@ -1,26 +1,5 @@
-import { useCallback } from 'react'
-import type { ReactNode } from 'react'
-import AlertModalContent from '@/components/AlertModalContent'
-import Modal from '@/layouts/Modal'
-import { renderToBody } from '@/utils/renderToBody'
-
-export interface AlertOptions {
-  title?: string
-  message: ReactNode
-  confirmText?: string
-  cancelText?: string
-  onConfirm?: () => void
-  onCancel?: () => void
-  showCancel?: boolean
-}
-
-const defaultOptions: AlertOptions = {
-  title: '',
-  message: '',
-  confirmText: '확인',
-  cancelText: '취소',
-  showCancel: false,
-}
+import { AlertContext } from '@/context/AlertContext'
+import { useContext } from 'react'
 
 /**
  * 함수로 모달을 호출하여 사용할 수 있습니다.
@@ -41,32 +20,6 @@ const defaultOptions: AlertOptions = {
  * ```
  */
 export default function useAlertModal() {
-  // AlertModal을 자동으로 렌더링
-  const renderAlertModal = useCallback((options: AlertOptions | string) => {
-    function AlertModal() {
-      return (
-        <Modal>
-          <Modal.Content isDefaultOpen>
-            <AlertModalContent
-              {...(typeof options === 'string'
-                ? { ...defaultOptions, message: options }
-                : { ...defaultOptions, ...options })}
-            />
-          </Modal.Content>
-        </Modal>
-      )
-    }
-    return renderToBody(AlertModal, {})
-  }, [])
-
-  const alert = useCallback(
-    (options: AlertOptions | string) => {
-      renderAlertModal(options)
-    },
-    [renderAlertModal]
-  )
-
-  return {
-    alert,
-  }
+  const { alert } = useContext(AlertContext)
+  return { alert }
 }

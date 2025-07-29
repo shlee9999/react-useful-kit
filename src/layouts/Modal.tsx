@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom'
 import { CloseIcon } from '@/assets/icons/core'
 import { ModalContext } from '@/context/ModalContext'
 import '@/styles/modal.css'
+import useLockBodyScroll from '@/hooks/useLockBodyScroll'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -41,19 +42,29 @@ function ModalContent({
   className,
   overlay = true,
   isDefaultOpen,
+  onClose,
 }: {
   children: ReactNode
   className?: string
   overlay?: boolean
   isDefaultOpen?: boolean
+  onClose?: () => void
 }) {
   const { isOpen, setIsOpen } = useContext(ModalContext)
+
+  useLockBodyScroll({ isLocked: isOpen })
 
   useEffect(() => {
     if (isDefaultOpen) {
       setIsOpen(true)
     }
   }, [isDefaultOpen, setIsOpen])
+
+  useEffect(() => {
+    if (!isOpen) {
+      onClose?.()
+    }
+  }, [isOpen, onClose])
 
   const content = <div className={`react-useful-kit-modal-content ${className}`}>{children}</div>
 
