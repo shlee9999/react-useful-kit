@@ -1,7 +1,9 @@
 import { useModal } from '@/context/ModalContext'
 import { deepEqual } from '@/utils/deepEqual'
 import { omit, pick } from '@/utils/objectUtils'
-import './styles/test-page.css'
+import '@/styles/test-page.css'
+import '@/styles/content.css'
+import { modalAlert } from '@/global'
 
 function App() {
   return (
@@ -20,15 +22,23 @@ function App() {
               모달 & 알럴트 테스트
             </h2>
             <div className='button-grid'>
-              <button className='test-button' onClick={() => alert('Hello')}>
+              <button
+                className='test-button'
+                onClick={() =>
+                  modalAlert({
+                    content: <Content />,
+                    onClose: () => console.log('close 누름'),
+                  })
+                }
+              >
                 기본 알럴트
                 <span className='test-button-description'>간단한 메시지 알럴트</span>
               </button>
 
-              <button
+              {/* <button
                 className='test-button'
                 onClick={() =>
-                  alert({
+                  modalAlert({
                     content: <Content />,
                     onClose: () => console.log('close 누름'),
                   })
@@ -36,9 +46,12 @@ function App() {
               >
                 커스텀 콘텐츠 알럴트
                 <span className='test-button-description'>React 컴포넌트가 포함된 알럴트</span>
-              </button>
+              </button> */}
 
-              <button className='test-button' onClick={() => alert('window.alert가 커스텀 모달로 대체되었습니다!')}>
+              <button
+                className='test-button'
+                onClick={() => modalAlert('window.alert가 커스텀 모달로 대체되었습니다!')}
+              >
                 window.alert 테스트
                 <span className='test-button-description'>브라우저 기본 alert 대신 커스텀 모달</span>
               </button>
@@ -54,7 +67,7 @@ function App() {
             <div className='button-grid'>
               <button
                 className='test-button'
-                onClick={() => alert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => modalAlert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 pick 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키만 선택: {`{a: 1, b: 2}`}</span>
@@ -62,7 +75,7 @@ function App() {
 
               <button
                 className='test-button'
-                onClick={() => alert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => modalAlert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 omit 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키 제외: {`{c: 3}`}</span>
@@ -80,7 +93,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 동일한 객체 비교
@@ -90,7 +103,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
                 }
               >
                 다른 값 비교
@@ -100,7 +113,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
                 }
               >
                 배열 포함 객체 비교
@@ -110,7 +123,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 타입 다른 값 비교
@@ -129,21 +142,10 @@ export default App
 const Content = () => {
   const { closeModal } = useModal()
   return (
-    <div style={{ textAlign: 'center' }}>
-      <h1 style={{ color: '#667eea', marginBottom: '1rem' }}>안녕하세요!</h1>
-      <p style={{ color: '#64748b', marginBottom: '1.5rem' }}>이것은 커스텀 모달 콘텐츠입니다.</p>
-      <button
-        onClick={closeModal}
-        style={{
-          background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-          color: 'white',
-          border: 'none',
-          borderRadius: '8px',
-          padding: '0.75rem 1.5rem',
-          cursor: 'pointer',
-          fontWeight: '500',
-        }}
-      >
+    <div className='content-container'>
+      <h1 className='content-title'>안녕하세요!</h1>
+      <p className='content-description'>이것은 커스텀 모달 콘텐츠입니다.</p>
+      <button className='content-close-button' onClick={closeModal}>
         모달 닫기
       </button>
     </div>

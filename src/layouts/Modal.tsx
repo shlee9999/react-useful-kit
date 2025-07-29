@@ -57,6 +57,10 @@ export type ModalContentProps = {
 function ModalContent({ children, overlay = true, isDefaultOpen, onClose }: ModalContentProps) {
   const { isOpen, openModal } = useContext(ModalContext)
 
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
   useLockBodyScroll({ isLocked: isOpen })
 
   useEffect(() => {
@@ -67,10 +71,11 @@ function ModalContent({ children, overlay = true, isDefaultOpen, onClose }: Moda
   }, [isDefaultOpen, openModal])
 
   useEffect(() => {
-    if (!isOpen) {
-      onClose?.()
+    if (!isOpen && isMounted && onClose) {
+      console.log('onClose')
+      onClose()
     }
-  }, [isOpen, onClose])
+  }, [isOpen, onClose, isMounted])
 
   const content = <div className='react-useful-kit-modal-content'>{children}</div>
 

@@ -43,16 +43,13 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
 
   // window.alert를 커스텀 alert로 대체
   useEffect(() => {
-    const originalAlert = window.alert
-
     // window.alert를 커스텀 alert로 override
-    window.alert = (message: string) => {
-      alert(message)
-    }
+    window.modalAlert = alert
 
     // cleanup 시 원래 alert로 복원
     return () => {
-      window.alert = originalAlert
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).modalAlert
     }
   }, [alert])
 
