@@ -11,17 +11,17 @@ export default function AlertModalContent({
   showCancel,
   title,
 }: AlertOptions) {
-  const { setIsOpen } = useModal()
+  const { closeModal } = useModal()
 
   const handleConfirm = useCallback(() => {
     onConfirm?.()
-    setIsOpen(false)
-  }, [onConfirm, setIsOpen])
+    closeModal()
+  }, [onConfirm, closeModal])
 
   const handleCancel = useCallback(() => {
     onCancel?.()
-    setIsOpen(false)
-  }, [onCancel, setIsOpen])
+    closeModal()
+  }, [onCancel, closeModal])
 
   return (
     <div className='react-useful-kit-alert-modal-content'>

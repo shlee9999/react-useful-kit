@@ -1,4 +1,13 @@
-import { cloneElement, useContext, useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react'
+import {
+  cloneElement,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  type ReactElement,
+  type ReactNode,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { CloseIcon } from '@/assets/icons/core'
 import { ModalContext } from '@/context/ModalContext'
@@ -8,7 +17,9 @@ import useLockBodyScroll from '@/hooks/useLockBodyScroll'
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isModal, setIsModal] = useState(false) // 모달 컴포넌트 내부인지 판단
-  const value = useMemo(() => ({ isOpen, setIsOpen, isModal }), [isOpen, isModal])
+  const openModal = useCallback(() => setIsOpen(true), [])
+  const closeModal = useCallback(() => setIsOpen(false), [])
+  const value = useMemo(() => ({ isOpen, isModal, openModal, closeModal }), [isOpen, isModal, openModal, closeModal])
 
   useEffect(() => {
     setIsModal(true)
@@ -25,40 +36,36 @@ function ModalTrigger({
 }: {
   children: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
 }) {
-  const { setIsOpen } = useContext(ModalContext)
+  const { openModal } = useContext(ModalContext)
   return cloneElement(children, {
     onClick: async (e: React.MouseEvent<HTMLElement>) => {
       // 기존 onClick이 있다면 실행 (비동기 지원)
       if (children.props.onClick) {
         await children.props.onClick(e)
       }
-      setIsOpen(true)
+      openModal()
     },
   })
 }
 
-function ModalContent({
-  children,
-  className,
-  overlay = true,
-  isDefaultOpen,
-  onClose,
-}: {
+export type ModalContentProps = {
   children: ReactNode
   className?: string
   overlay?: boolean
   isDefaultOpen?: boolean
   onClose?: () => void
-}) {
-  const { isOpen, setIsOpen } = useContext(ModalContext)
+}
+function ModalContent({ children, className, overlay = true, isDefaultOpen, onClose }: ModalContentProps) {
+  const { isOpen, openModal } = useContext(ModalContext)
 
   useLockBodyScroll({ isLocked: isOpen })
 
   useEffect(() => {
     if (isDefaultOpen) {
-      setIsOpen(true)
+      console.log('openModal')
+      openModal()
     }
-  }, [isDefaultOpen, setIsOpen])
+  }, [isDefaultOpen, openModal])
 
   useEffect(() => {
     if (!isOpen) {
@@ -84,22 +91,16 @@ function ModalClose({
   className?: string
   children?: ReactElement<{ onClick?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void> }>
 }) {
-  const { setIsOpen } = useContext(ModalContext)
+  const { closeModal } = useContext(ModalContext)
   if (!children)
-    return (
-      <CloseIcon
-        className={`react-useful-kit-modal-close ${className}`}
-        onClick={() => setIsOpen(false)}
-        cursor='pointer'
-      />
-    )
+    return <CloseIcon className={`react-useful-kit-modal-close ${className}`} onClick={closeModal} cursor='pointer' />
   return cloneElement(children, {
     onClick: async (e: React.MouseEvent<HTMLElement>) => {
       // 기존 onClick이 있다면 실행 (비동기 지원)
       if (children.props.onClick) {
         await children.props.onClick(e)
       }
-      setIsOpen(false)
+      closeModal()
     },
   })
 }

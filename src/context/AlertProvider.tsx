@@ -9,6 +9,13 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
   // AlertModal을 자동으로 렌더링
   const renderAlertModal = useCallback((options: AlertOptions | string) => {
     function AlertModal() {
+      if (typeof options === 'object' && 'content' in options) {
+        return (
+          <Modal>
+            <Modal.Content isDefaultOpen>{options.content}</Modal.Content>
+          </Modal>
+        )
+      }
       return (
         <Modal>
           <Modal.Content isDefaultOpen>
