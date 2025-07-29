@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useMemo, useState, useEffect, type ReactNode } from 'react'
 import AlertModalContent from '@/components/AlertModalContent'
 import Modal from '@/layouts/Modal'
 import type { AlertOptions } from '@/types/alert-options'
@@ -6,6 +6,7 @@ import { AlertContext, defaultOptions } from './AlertContext'
 
 export const AlertProvider = ({ children }: { children: ReactNode }) => {
   const [modals, setModals] = useState<ReactNode[]>([])
+
   // AlertModal을 자동으로 렌더링
   const renderAlertModal = useCallback((options: AlertOptions | string) => {
     function AlertModal() {
@@ -39,6 +40,21 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
     },
     [renderAlertModal]
   )
+
+  // window.alert를 커스텀 alert로 대체
+  useEffect(() => {
+    const originalAlert = window.alert
+
+    // window.alert를 커스텀 alert로 override
+    window.alert = (message: string) => {
+      alert(message)
+    }
+
+    // cleanup 시 원래 alert로 복원
+    return () => {
+      window.alert = originalAlert
+    }
+  }, [alert])
 
   const value = useMemo(() => ({ alert, modals }), [alert, modals])
   return (
