@@ -2,7 +2,8 @@ import { AlertContext } from '@/context/AlertContext'
 import { useContext } from 'react'
 
 /**
- * 함수로 모달을 호출하여 사용할 수 있습니다.
+ * 모달 외부에서 함수로 모달을 호출하는 훅입니다.
+ * 모달 내부에서 사용하는 훅은 useModal을 사용해야 합니다.
  *
  * @example
  * ```tsx
@@ -18,6 +19,9 @@ import { useContext } from 'react'
  *   onCancel: () => console.log('취소')
  * })
  * ```
+ *
+ * @param options: AlertOptions
+ * @returns { alert: (options: AlertOptions | string) => void }
  */
 export default function useAlertModal() {
   const { alert } = useContext(AlertContext)

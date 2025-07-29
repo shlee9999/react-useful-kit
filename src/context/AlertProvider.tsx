@@ -12,7 +12,14 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
       if (typeof options === 'object' && 'content' in options) {
         return (
           <Modal>
-            <Modal.Content isDefaultOpen>{options.content}</Modal.Content>
+            <Modal.Content
+              isDefaultOpen
+              className={options.className}
+              overlay={options.overlay}
+              onClose={options.onClose}
+            >
+              {options.content}
+            </Modal.Content>
           </Modal>
         )
       }
