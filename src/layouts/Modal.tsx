@@ -50,12 +50,11 @@ function ModalTrigger({
 
 export type ModalContentProps = {
   children: ReactNode
-  className?: string
   overlay?: boolean
   isDefaultOpen?: boolean
   onClose?: () => void
 }
-function ModalContent({ children, className, overlay = true, isDefaultOpen, onClose }: ModalContentProps) {
+function ModalContent({ children, overlay = true, isDefaultOpen, onClose }: ModalContentProps) {
   const { isOpen, openModal } = useContext(ModalContext)
 
   useLockBodyScroll({ isLocked: isOpen })
@@ -73,11 +72,11 @@ function ModalContent({ children, className, overlay = true, isDefaultOpen, onCl
     }
   }, [isOpen, onClose])
 
-  const content = <div className={`react-useful-kit-modal-content ${className}`}>{children}</div>
+  const content = <div className='react-useful-kit-modal-content'>{children}</div>
 
   if (!isOpen) return null
   return createPortal(
-    <div className={overlay ? 'react-useful-kit-modal-overlay' : ''} data-overlay={overlay}>
+    <div className='react-useful-kit-modal-overlay' data-overlay={overlay}>
       {content}
     </div>,
     document.body

@@ -6,7 +6,9 @@ function App() {
   return (
     <div style={{ height: '120vh' }}>
       <button onClick={() => alert('Hello')}>Alert</button>
-      <button onClick={() => alert({ content: <Content /> })}>Alert with content</button>
+      <button onClick={() => alert({ content: <Content />, onClose: () => console.log('close 누름') })}>
+        Alert with content
+      </button>
     </div>
   )
 }
