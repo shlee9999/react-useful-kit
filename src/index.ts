@@ -13,5 +13,5 @@ export type { AlertOptions } from './types/alert-options'
 
 // Utils
 export { deepEqual } from './utils/deepEqual'
-export { modalAlert } from './global'
+export { useAlertModal } from './hooks/useAlertModal'
 export { pick, omit } from './utils/objectUtils'
