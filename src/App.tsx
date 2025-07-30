@@ -3,9 +3,10 @@ import { deepEqual } from '@/utils/deepEqual'
 import { omit, pick } from '@/utils/objectUtils'
 import '@/styles/test-page.css'
 import '@/styles/content.css'
-import { modalAlert } from '@/global'
+import { useAlertModal } from './hooks/useAlertModal'
 
 function App() {
+  const { alert } = useAlertModal()
   return (
     <div className='test-page'>
       <div className='test-container'>
@@ -25,7 +26,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert({
+                  alert({
                     content: <Content />,
                     onClose: () => console.log('close 누름'),
                   })
@@ -38,7 +39,7 @@ function App() {
               {/* <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert({
+                  alert({
                     content: <Content />,
                     onClose: () => console.log('close 누름'),
                   })
@@ -48,10 +49,7 @@ function App() {
                 <span className='test-button-description'>React 컴포넌트가 포함된 알럴트</span>
               </button> */}
 
-              <button
-                className='test-button'
-                onClick={() => modalAlert('window.alert가 커스텀 모달로 대체되었습니다!')}
-              >
+              <button className='test-button' onClick={() => alert('window.alert가 커스텀 모달로 대체되었습니다!')}>
                 window.alert 테스트
                 <span className='test-button-description'>브라우저 기본 alert 대신 커스텀 모달</span>
               </button>
@@ -67,7 +65,7 @@ function App() {
             <div className='button-grid'>
               <button
                 className='test-button'
-                onClick={() => modalAlert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => alert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 pick 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키만 선택: {`{a: 1, b: 2}`}</span>
@@ -75,7 +73,7 @@ function App() {
 
               <button
                 className='test-button'
-                onClick={() => modalAlert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => alert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 omit 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키 제외: {`{c: 3}`}</span>
@@ -93,7 +91,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
+                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 동일한 객체 비교
@@ -103,7 +101,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
+                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
                 }
               >
                 다른 값 비교
@@ -113,7 +111,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
+                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
                 }
               >
                 배열 포함 객체 비교
@@ -123,7 +121,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
+                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 타입 다른 값 비교

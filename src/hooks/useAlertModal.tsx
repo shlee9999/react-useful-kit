@@ -23,7 +23,7 @@ import { useContext } from 'react'
  * @param options: AlertOptions
  * @returns { alert: (options: AlertOptions | string) => void }
  */
-function useAlertModal() {
+export function useAlertModal() {
   const { alert } = useContext(AlertContext)
   return { alert }
 }
