@@ -30,7 +30,16 @@ type ModalAlert = {
  * @returns { alert: (options: AlertOptions | string) => void }
  */
 export function useAlertModal() {
-  const { alert, close } = useContext(AlertContext)
+  const context = useContext(AlertContext)
+
+  console.log({ AlertContext })
+  if (!context) {
+    throw new Error(
+      'useAlertModal은 AlertProvider 내부에서만 사용할 수 있습니다. ' + 'AlertProvider로 컴포넌트를 감싸주세요.'
+    )
+  }
+
+  const { alert, close } = context
   const modalAlert = alert as ModalAlert
   modalAlert.close = close
   return modalAlert

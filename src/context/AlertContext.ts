@@ -4,7 +4,4 @@ import { createContext } from 'react'
 export const AlertContext = createContext<{
   alert: (options: AlertOptions | string) => void
   close: () => void
-}>({
-  alert: () => {},
-  close: () => {},
-})
+} | null>(null)
