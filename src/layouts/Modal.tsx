@@ -53,8 +53,9 @@ export type ModalContentProps = {
   overlay?: boolean
   isDefaultOpen?: boolean
   onClose?: () => void
+  containerRef?: React.RefObject<HTMLElement | null>
 }
-function ModalContent({ children, overlay = true, isDefaultOpen, onClose }: ModalContentProps) {
+function ModalContent({ children, overlay = true, isDefaultOpen, onClose, containerRef }: ModalContentProps) {
   const { isOpen, openModal } = useContext(ModalContext)
 
   const [isMounted, setIsMounted] = useState(false)
@@ -65,26 +66,25 @@ function ModalContent({ children, overlay = true, isDefaultOpen, onClose }: Moda
 
   useEffect(() => {
     if (isDefaultOpen) {
-      console.log('openModal')
       openModal()
     }
   }, [isDefaultOpen, openModal])
 
   useEffect(() => {
     if (!isOpen && isMounted && onClose) {
-      console.log('onClose')
       onClose()
     }
   }, [isOpen, onClose, isMounted])
 
   const content = <div className='react-useful-kit-modal-content'>{children}</div>
 
+  console.log('containerRef', containerRef?.current)
   if (!isOpen) return null
   return createPortal(
     <div className='react-useful-kit-modal-overlay' data-overlay={overlay}>
       {content}
     </div>,
-    document.body
+    containerRef?.current ?? document.body
   )
 }
 

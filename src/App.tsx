@@ -4,9 +4,11 @@ import { omit, pick } from '@/utils/objectUtils'
 import '@/styles/test-page.css'
 import '@/styles/content.css'
 import { useAlertModal } from './hooks/useAlertModal'
+import { useRef } from 'react'
 
 function App() {
   const { alert } = useAlertModal()
+  const containerRef = useRef<HTMLDivElement>(null)
   return (
     <div className='test-page'>
       <div className='test-container'>
@@ -35,7 +37,6 @@ function App() {
                 기본 알럴트
                 <span className='test-button-description'>간단한 메시지 알럴트</span>
               </button>
-
               {/* <button
                 className='test-button'
                 onClick={() =>
@@ -48,11 +49,25 @@ function App() {
                 커스텀 콘텐츠 알럴트
                 <span className='test-button-description'>React 컴포넌트가 포함된 알럴트</span>
               </button> */}
-
               <button className='test-button' onClick={() => alert('window.alert가 커스텀 모달로 대체되었습니다!')}>
                 window.alert 테스트
                 <span className='test-button-description'>브라우저 기본 alert 대신 커스텀 모달</span>
               </button>
+              <button
+                className='test-button'
+                onClick={() =>
+                  alert({
+                    content: <Content />,
+                    containerRef,
+                  })
+                }
+              >
+                containerRef 테스트
+                <span className='test-button-description'>containerRef 테스트</span>
+              </button>
+              <div ref={containerRef} className='test-container-ref'>
+                <h1 style={{ color: 'red' }}>containerRef는 여기에 있습니다.</h1>
+              </div>
             </div>
           </div>
 

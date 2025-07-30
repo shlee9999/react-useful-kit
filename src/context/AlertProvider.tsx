@@ -1,7 +1,7 @@
-import { useCallback, useMemo, useState, useEffect, type ReactNode } from 'react'
 import AlertModalContent from '@/components/AlertModalContent'
 import Modal from '@/layouts/Modal'
 import type { AlertOptions } from '@/types/alert-options'
+import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { AlertContext, defaultOptions } from './AlertContext'
 
 export const AlertProvider = ({ children }: { children: ReactNode }) => {
@@ -9,11 +9,17 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
 
   // AlertModal을 자동으로 렌더링
   const renderAlertModal = useCallback((options: AlertOptions | string) => {
+    console.log('renderAlertModal options:', options)
     function AlertModal() {
       if (typeof options === 'object' && 'content' in options) {
         return (
           <Modal>
-            <Modal.Content isDefaultOpen overlay={options.overlay} onClose={options.onClose}>
+            <Modal.Content
+              isDefaultOpen
+              overlay={options.overlay}
+              onClose={options.onClose}
+              containerRef={options.containerRef}
+            >
               {options.content}
             </Modal.Content>
           </Modal>
@@ -40,18 +46,6 @@ export const AlertProvider = ({ children }: { children: ReactNode }) => {
     },
     [renderAlertModal]
   )
-
-  // window.alert를 커스텀 alert로 대체
-  useEffect(() => {
-    // window.alert를 커스텀 alert로 override
-    window.modalAlert = alert
-
-    // cleanup 시 원래 alert로 복원
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      delete (window as any).modalAlert
-    }
-  }, [alert])
 
   const value = useMemo(() => ({ alert, modals }), [alert, modals])
   return (
