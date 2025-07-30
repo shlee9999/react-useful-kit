@@ -7,7 +7,7 @@ import { useAlertModal } from './hooks/useAlertModal'
 import { useRef } from 'react'
 
 function App() {
-  const { alert } = useAlertModal()
+  const alert = useAlertModal()
   const containerRef = useRef<HTMLDivElement>(null)
   return (
     <div className='test-page'>

@@ -11,6 +11,8 @@ export const defaultOptions: AlertOptions = {
 
 export const AlertContext = createContext<{
   alert: (options: AlertOptions | string) => void
+  close: () => void
 }>({
   alert: () => {},
+  close: () => {},
 })

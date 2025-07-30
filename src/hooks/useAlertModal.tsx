@@ -1,5 +1,11 @@
 import { AlertContext } from '@/context/AlertContext'
+import type { AlertOptions } from '@/types/alert-options'
 import { useContext } from 'react'
+
+type ModalAlert = {
+  (options: AlertOptions | string): void
+  close: () => void
+}
 
 /**
  * 모달 외부에서 함수로 모달을 호출하는 훅입니다.
@@ -24,6 +30,8 @@ import { useContext } from 'react'
  * @returns { alert: (options: AlertOptions | string) => void }
  */
 export function useAlertModal() {
-  const { alert } = useContext(AlertContext)
-  return { alert }
+  const { alert, close } = useContext(AlertContext)
+  const modalAlert = alert as ModalAlert
+  modalAlert.close = close
+  return modalAlert
 }
