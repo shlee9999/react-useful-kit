@@ -2,14 +2,25 @@ import { useCallback } from 'react'
 import { useModal } from '@/context/ModalContext'
 import type { AlertOptions } from '@/types/alert-options'
 
+//* 메모이제이션을 위해 기본값을 미리 설정
+const defaultOptions: AlertOptions = {
+  title: '',
+  message: '',
+  confirmText: '확인',
+  cancelText: '취소',
+  showCancel: false,
+  onConfirm: () => {},
+  onCancel: () => {},
+}
+
 export default function AlertModalContent({
-  onConfirm,
-  onCancel,
-  message,
-  cancelText,
-  confirmText,
-  showCancel,
-  title,
+  onConfirm = defaultOptions.onConfirm,
+  onCancel = defaultOptions.onCancel,
+  message = defaultOptions.message,
+  cancelText = defaultOptions.cancelText,
+  confirmText = defaultOptions.confirmText,
+  showCancel = defaultOptions.showCancel,
+  title = defaultOptions.title,
 }: AlertOptions) {
   const { closeModal } = useModal()
 

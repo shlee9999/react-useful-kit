@@ -2,13 +2,13 @@ import AlertModalContent from '@/components/AlertModalContent'
 import Modal from '@/layouts/Modal'
 import type { AlertOptions } from '@/types/alert-options'
 import { useCallback, useMemo, useState, useRef, type ReactNode, Fragment } from 'react'
-import { AlertContext, defaultOptions } from './AlertContext'
+import { AlertContext } from './AlertContext'
 
 export const AlertProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
   const [modals, setModals] = useState<ReactNode[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
-  // AlertModal을 자동으로 렌더링
-  const renderAlertModal = useCallback((options: AlertOptions | string) => {
+
+  const alert = useCallback((options: AlertOptions | string) => {
     function AlertModal() {
       if (typeof options === 'object' && 'content' in options) {
         return (
@@ -27,24 +27,13 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
       return (
         <Modal>
           <Modal.Content isDefaultOpen>
-            <AlertModalContent
-              {...(typeof options === 'string'
-                ? { ...defaultOptions, message: options }
-                : { ...defaultOptions, ...options })}
-            />
+            <AlertModalContent {...(typeof options === 'string' ? { message: options } : options)} />
           </Modal.Content>
         </Modal>
       )
     }
     setModals(prev => [...prev, <AlertModal />])
   }, [])
-
-  const alert = useCallback(
-    (options: AlertOptions | string) => {
-      renderAlertModal(options)
-    },
-    [renderAlertModal]
-  )
 
   //todo: id로 찾아서 닫기
   const close = useCallback(() => {
