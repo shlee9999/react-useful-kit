@@ -1,6 +1,6 @@
 {
   "name": "react-useful-kit",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Useful React components and hooks",
   "main": "dist/react-useful-kit.umd.js",
   "module": "dist/react-useful-kit.es.js",
