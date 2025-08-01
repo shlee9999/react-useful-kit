@@ -3,6 +3,7 @@ export { default as useDeepEffect } from './hooks/useDeepEffect'
 export { default as useDeepMemo } from './hooks/useDeepMemo'
 export { default as useDeepCallback } from './hooks/useDeepCallback'
 export { default as useLockBodyScroll } from './hooks/useLockBodyScroll'
+export { default as useUpdateEffect } from './hooks/useUpdateEffect'
 
 // Context
 export { AlertProvider } from './context/AlertProvider'
