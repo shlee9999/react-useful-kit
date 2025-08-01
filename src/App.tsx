@@ -7,7 +7,7 @@ import { useAlertModal } from './hooks/useAlertModal'
 import { useRef } from 'react'
 
 function App() {
-  const alert = useAlertModal()
+  const modalAlert = useAlertModal()
   const containerRef = useRef<HTMLDivElement>(null)
   return (
     <div className='test-page'>
@@ -28,7 +28,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert({
+                  modalAlert({
                     content: <Content />,
                     onClose: () => console.log('close 누름'),
                   })
@@ -49,14 +49,10 @@ function App() {
                 커스텀 콘텐츠 알럴트
                 <span className='test-button-description'>React 컴포넌트가 포함된 알럴트</span>
               </button> */}
-              <button className='test-button' onClick={() => alert('window.alert가 커스텀 모달로 대체되었습니다!')}>
-                window.alert 테스트
-                <span className='test-button-description'>브라우저 기본 alert 대신 커스텀 모달</span>
-              </button>
               <button
                 className='test-button'
                 onClick={() =>
-                  alert({
+                  modalAlert({
                     content: <Content />,
                     containerRef,
                   })
@@ -80,7 +76,7 @@ function App() {
             <div className='button-grid'>
               <button
                 className='test-button'
-                onClick={() => alert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => modalAlert(JSON.stringify(pick({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 pick 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키만 선택: {`{a: 1, b: 2}`}</span>
@@ -88,7 +84,7 @@ function App() {
 
               <button
                 className='test-button'
-                onClick={() => alert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
+                onClick={() => modalAlert(JSON.stringify(omit({ a: 1, b: 2, c: 3 }, ['a', 'b'])))}
               >
                 omit 함수 테스트
                 <span className='test-button-description'>객체에서 특정 키 제외: {`{c: 3}`}</span>
@@ -106,7 +102,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 동일한 객체 비교
@@ -116,7 +112,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: 3 } }, { a: 1, b: 2, c: { d: 4 } })))
                 }
               >
                 다른 값 비교
@@ -126,7 +122,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: [] } })))
                 }
               >
                 배열 포함 객체 비교
@@ -136,7 +132,7 @@ function App() {
               <button
                 className='test-button'
                 onClick={() =>
-                  alert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
+                  modalAlert(JSON.stringify(deepEqual({ a: 1, b: 2, c: { d: [] } }, { a: 1, b: 2, c: { d: 3 } })))
                 }
               >
                 타입 다른 값 비교

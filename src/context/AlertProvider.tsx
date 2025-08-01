@@ -47,9 +47,10 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
           </Modal>
         )
       }
+      // string 타입일 경우
       return (
         <Modal>
-          <Modal.Content isDefaultOpen>
+          <Modal.Content isDefaultOpen containerRef={containerRef}>
             <AlertModalContent {...(typeof options === 'string' ? { message: options } : options)} />
           </Modal.Content>
         </Modal>
@@ -66,6 +67,7 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
   const value = useMemo(() => ({ alert, close }), [alert, close])
 
   function ModalContainer() {
+    if (modals.length === 0) return null
     return (
       <div
         id={id ?? 'react-useful-kit-modal-container'}
