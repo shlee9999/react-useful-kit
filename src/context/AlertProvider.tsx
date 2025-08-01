@@ -3,6 +3,7 @@ import Modal from '@/layouts/Modal'
 import type { AlertOptions } from '@/types/alert-options'
 import { useCallback, useMemo, useState, useRef, type ReactNode, Fragment } from 'react'
 import { AlertContext } from './AlertContext'
+import { createPortal } from 'react-dom'
 
 /**
  * 기본적으로 main.tsx에서 App을 감싸주세요.
@@ -64,10 +65,8 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
 
   const value = useMemo(() => ({ alert, close }), [alert, close])
 
-  return (
-    <AlertContext.Provider value={value}>
-      {children}
-      {/* 모달 컨테이너. 모달이 여러개 있을 경우 모달이 겹치지 않도록 처리 */}
+  function ModalContainer() {
+    return (
       <div
         id={id ?? 'react-useful-kit-modal-container'}
         className='react-useful-kit-modal-container'
@@ -77,6 +76,14 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
           <Fragment key={index}>{modal}</Fragment>
         ))}
       </div>
+    )
+  }
+
+  return (
+    <AlertContext.Provider value={value}>
+      {children}
+      {/* 모달 컨테이너. 모달이 여러개 있을 경우 모달이 겹치지 않도록 처리 */}
+      {createPortal(<ModalContainer />, document.body)}
     </AlertContext.Provider>
   )
 }
