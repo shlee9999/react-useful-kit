@@ -128,6 +128,22 @@ function App() {
                 배열 포함 객체 비교
                 <span className='test-button-description'>결과: true (빈 배열도 같음)</span>
               </button>
+              <button
+                className='test-button'
+                onClick={() =>
+                  modalAlert(
+                    JSON.stringify(
+                      deepEqual(
+                        () => console.log('fn1'),
+                        () => console.log('fn1')
+                      )
+                    )
+                  )
+                }
+              >
+                함수 비교
+                <span className='test-button-description'>결과: true (함수 비교)</span>
+              </button>
 
               <button
                 className='test-button'
