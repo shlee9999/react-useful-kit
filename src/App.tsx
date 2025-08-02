@@ -1,16 +1,28 @@
+import { DummyComponent } from '@/components/DummyComponent.test'
+import { AlertProvider } from '@/context/AlertProvider'
+import { DummyProvider1 } from '@/context/DummyContext1.test'
 import { useModal } from '@/context/ModalContext'
+import '@/styles/content.css'
+import '@/styles/test-page.css'
 import { deepEqual } from '@/utils/deepEqual'
 import { omit, pick } from '@/utils/objectUtils'
-import '@/styles/test-page.css'
-import '@/styles/content.css'
-import { useAlertModal } from './hooks/useAlertModal'
 import { useRef } from 'react'
+import { useAlertModal } from './hooks/useAlertModal'
 
 function App() {
-  const modalAlert = useAlertModal()
   const containerRef = useRef<HTMLDivElement>(null)
+  const modalAlert = useAlertModal()
+
   return (
     <div className='test-page'>
+      <DummyProvider1>
+        <DummyComponent />
+      </DummyProvider1>
+      <DummyProvider1>
+        <AlertProvider>
+          <DummyComponent />
+        </AlertProvider>
+      </DummyProvider1>
       <div className='test-container'>
         <div className='test-header'>
           <h1 className='test-title'>React Useful Kit 테스트</h1>
