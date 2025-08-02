@@ -4,7 +4,6 @@ import { useContext } from 'react'
 
 type ModalAlert = {
   (options: AlertOptions | string): void
-  close: (id: string) => void
 }
 
 /**
@@ -32,15 +31,13 @@ type ModalAlert = {
 export function useAlertModal() {
   const context = useContext(AlertContext)
 
-  console.log({ AlertContext })
-  if (!context) {
-    throw new Error(
-      'useAlertModal은 AlertProvider 내부에서만 사용할 수 있습니다. ' + 'AlertProvider로 컴포넌트를 감싸주세요.'
-    )
+  const { alert } = context ?? {
+    alert: () => {
+      console.error(
+        'useAlertModal은 AlertProvider 내부에서만 사용할 수 있습니다. AlertProvider로 컴포넌트를 감싸주세요.'
+      )
+    },
   }
-
-  const { alert, close } = context
   const modalAlert = alert as ModalAlert
-  modalAlert.close = close
   return modalAlert
 }
