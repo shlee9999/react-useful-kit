@@ -13,17 +13,14 @@ import { CloseIcon } from '@/assets/icons/core'
 import { ModalContext } from '@/context/ModalContext'
 import '@/styles/modal.css'
 import useLockBodyScroll from '@/hooks/useLockBodyScroll'
-import { useAlertModal } from '@/hooks/useAlertModal'
 
 function Modal({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isModal, setIsModal] = useState(false) // 모달 컴포넌트 내부인지 판단
-  const { close } = useAlertModal()
   const openModal = useCallback(() => setIsOpen(true), [])
   const closeModal = useCallback(() => {
     setIsOpen(false)
-    close() //* AlertProvider의 modals에서 pop
-  }, [close])
+  }, [])
   const value = useMemo(() => ({ isOpen, isModal, openModal, closeModal }), [isOpen, isModal, openModal, closeModal])
 
   useEffect(() => {

@@ -8,12 +8,12 @@ import { createPortal } from 'react-dom'
 /**
  * 기본적으로 main.tsx에서 App을 감싸주세요.
  * 특정 Context를 공유하고 싶다면, 해당 ContextProvider 내부에 AlertProvider를 사용하세요.
- * 즉, 다중 AlertProvider를 지원합니다. id를 지정하지 않으면 기본값으로 'react-useful-kit-modal-container'를 사용합니다.
+ * 즉, 다중 AlertProvider를 지원합니다. id를 지정하지 않으면 기본값으로 'react-useful-kit-alert-container'를 사용합니다.
  *
  * @example
  * ```tsx
  * <AlertProvider>
- *   <App /> //* 기본값으로 'react-useful-kit-modal-container'를 사용합니다.
+ *   <App /> //* 기본값으로 'react-useful-kit-alert-container'를 사용합니다.
  * </AlertProvider>
  * ```
  *
@@ -21,48 +21,67 @@ import { createPortal } from 'react-dom'
  * @example
  * ```tsx
  * <SomeContext>
- *   <AlertProvider id='custom-modal-container'>
+ *   <AlertProvider id='custom-alert-container'>
  *     <Child />
  *   </AlertProvider>
  * </SomeContext>
  * ```
  */
 export const AlertProvider = ({ children, id }: { children: ReactNode; id?: string }) => {
-  const [modals, setModals] = useState<ReactNode[]>([])
+  const [modals, setModals] = useState<{ modal: ReactNode; id: string }[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const alert = useCallback((options: AlertOptions | string) => {
-    function AlertModal() {
-      if (typeof options === 'object' && 'content' in options) {
+  const closeAlertModal = useCallback((modalId: string) => {
+    setModals(prev => prev.filter(modal => modal.id !== modalId))
+  }, [])
+
+  const modalId = id ?? `react-useful-kit-alert-${new Date().getTime().toString()}` //* 모달 고유 id 생성
+  const alert = useCallback(
+    (options: AlertOptions | string) => {
+      const onClose = () => {
+        if (typeof options === 'object' && 'onClose' in options) {
+          options.onClose?.()
+        }
+        closeAlertModal(modalId)
+      }
+
+      function AlertModal() {
+        if (typeof options === 'object' && 'content' in options) {
+          return (
+            <Modal>
+              <Modal.Content
+                isDefaultOpen
+                overlay={options.overlay}
+                onClose={onClose}
+                containerRef={options.containerRef ?? containerRef}
+              >
+                {options.content}
+              </Modal.Content>
+            </Modal>
+          )
+        }
+        // string 타입일 경우
         return (
           <Modal>
-            <Modal.Content
-              isDefaultOpen
-              overlay={options.overlay}
-              onClose={options.onClose}
-              containerRef={options.containerRef ?? containerRef}
-            >
-              {options.content}
+            <Modal.Content isDefaultOpen containerRef={containerRef} onClose={onClose}>
+              <AlertModalContent {...(typeof options === 'string' ? { message: options } : options)} />
             </Modal.Content>
           </Modal>
         )
       }
-      // string 타입일 경우
-      return (
-        <Modal>
-          <Modal.Content isDefaultOpen containerRef={containerRef}>
-            <AlertModalContent {...(typeof options === 'string' ? { message: options } : options)} />
-          </Modal.Content>
-        </Modal>
-      )
-    }
-    setModals(prev => [...prev, <AlertModal />])
-  }, [])
+
+      setModals(prev => [...prev, { modal: <AlertModal />, id: modalId }])
+    },
+    [closeAlertModal, modalId]
+  )
 
   //todo: id로 찾아서 닫기
-  const close = useCallback(() => {
-    setModals(prev => prev.slice(0, -1))
-  }, [])
+  const close = useCallback(
+    (id: string) => {
+      closeAlertModal(id)
+    },
+    [closeAlertModal]
+  )
 
   const value = useMemo(() => ({ alert, close }), [alert, close])
 
@@ -70,12 +89,12 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
     if (modals.length === 0) return null
     return (
       <div
-        id={id ?? 'react-useful-kit-modal-container'}
-        className='react-useful-kit-modal-container'
+        id={id ?? 'react-useful-kit-alert-container'}
+        className='react-useful-kit-alert-container'
         ref={containerRef}
       >
-        {modals.map((modal, index) => (
-          <Fragment key={index}>{modal}</Fragment>
+        {modals.map(({ modal, id }) => (
+          <Fragment key={id}>{modal}</Fragment>
         ))}
       </div>
     )

@@ -11,7 +11,7 @@ import type { ModalContentProps } from '@/layouts/Modal'
  * @param onCancel: 취소 버튼 클릭 시 실행할 함수
  * @param showCancel: 취소 버튼 표시 여부
  */
-export interface AlertOptions extends Omit<ModalContentProps, 'children'> {
+export interface AlertOptions extends Omit<ModalContentProps, 'children' | 'id'> {
   title?: string
   message?: ReactNode
   confirmText?: string
