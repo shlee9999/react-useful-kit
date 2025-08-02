@@ -35,7 +35,7 @@ export const AlertProvider = ({ children, id }: { children: ReactNode; id?: stri
     setModals(prev => prev.filter(modal => modal.id !== modalId))
   }, [])
 
-  const modalId = id ?? `react-useful-kit-alert-${new Date().getTime().toString()}` //* 모달 고유 id 생성
+  const modalId = `react-useful-kit-alert-${new Date().getTime().toString()}` //* 모달 고유 id 자동 생성. 모달 닫을 때 사용
   const alert = useCallback(
     (options: AlertOptions | string) => {
       const onClose = () => {

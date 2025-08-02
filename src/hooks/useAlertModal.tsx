@@ -4,7 +4,7 @@ import { useContext } from 'react'
 
 type ModalAlert = {
   (options: AlertOptions | string): void
-  close: () => void
+  close: (id: string) => void
 }
 
 /**
