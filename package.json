@@ -39,7 +39,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepublishOnly": "npm run build:lib",
-    "check-branch": "git branch --show-current | findstr /C:\"master\" >nul || (echo Error: This command can only be run on master branch && exit 1)",
     "publish:patch": "npm run check-branch && npm version patch && npm publish && git push --follow-tags",
     "publish:minor": "npm run check-branch && npm version minor && npm publish && git push --follow-tags",
     "publish:major": "npm run check-branch && npm version major && npm publish && git push --follow-tags"
