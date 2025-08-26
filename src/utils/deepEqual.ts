@@ -17,7 +17,7 @@ export function deepEqual(a: unknown, b: unknown): boolean {
 
   // 함수 처리
   if (typeof a === 'function' && typeof b === 'function') {
-    return a.toString() === b.toString()
+    return a === b
   }
 
   // 원시 타입인 경우 (이미 === 비교를 통과했으므로 false)
